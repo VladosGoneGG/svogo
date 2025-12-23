@@ -3,7 +3,7 @@ import Tg from '../../assets/svg/telegram.svg?react'
 const Header = () => {
 	return (
 		<header className=' max-w-106.25 h-19  min-[426px]:max-w-239.75 min-[960px]:max-w-300'>
-			<div className='flex items-center justify-between m-2.5 min-[960px]:m-5'>
+			<div className='flex items-center justify-between p-2.5 min-[960px]:p-5'>
 				<a href='/'>
 					<Logo />
 				</a>
@@ -30,7 +30,7 @@ const Header = () => {
 					<button className='hidden w-38.5 h-9.25 bg-[#D14E15] font-inter text-[14px] font-semibold text-white rounded-[10px] min-[1200px]:flex items-center justify-center cursor-pointer'>
 						Обратный звонок
 					</button>
-					<button className='w-13.5 h-11 rounded-[10px] bg-[#D14E15] flex flex-col items-center justify-center gap-1.5 cursor-pointer min-[960px]:hidden '>
+					<button className='w-13.5 h-11 rounded-[10px] bg-[#D14E15] flex flex-col items-center justify-center gap-1.5 cursor-pointer shadow-btn min-[960px]:hidden '>
 						<span className='w-4.5 h-0.5  bg-white rounded-full'></span>
 						<span className='w-4.5 h-0.5  bg-white rounded-full'></span>
 						<span className='w-4.5 h-0.5  bg-white rounded-full'></span>

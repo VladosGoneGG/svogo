@@ -10,4 +10,6 @@ body {
 	--font-robotomono: 'Roboto Mono', sans-serif;
 	--font-golos: 'Golos Text', sans-serif;
 	--font-inter: 'Inter', sans-serif;
+
+	--shadow-btn: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 }
