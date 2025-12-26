@@ -1,10 +1,10 @@
 const Compensations = () => {
 	return (
-		<section className='relative flex flex-col items-center pt-5'>
+		<section className='relative flex flex-col items-center pt-5 pb-5 lg:pb-[30px] xl:pb-[40px]'>
 			<div className='absolute inset-0 bg-white -left-[50vw] left-1/2 -translate-x-1/2 w-screen -z-10' />
 
 			<div
-				className='relative flex flex-col gap-5 w-full px-2.5
+				className='relative flex flex-col gap-5 w-full px-2.5 min-[1199px]:px-[20px]
 				max-[425px]:h-auto'
 			>
 				<div className='w-full max-w-[405px] max-[766px]:max-w-none  md:max-w-none'>

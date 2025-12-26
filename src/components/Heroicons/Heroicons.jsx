@@ -11,7 +11,7 @@ const Heroicons = () => {
 			h-auto min-[959px]:min-h-[75px]'
 		>
 			<ul
-				className='font-golos font-medium text-black text-[14px]
+				className='font-golos font-medium text-black max-[330px]:text-[12px] text-[14px]
 				grid grid-cols-2 gap-5
 				md:grid-cols-4 md:gap-2'
 			>

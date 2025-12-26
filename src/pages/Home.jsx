@@ -1,3 +1,4 @@
+import Benifits from '../components/Benifits/Benifits'
 import Compensations from '../components/Compensations/Compensations'
 import Footer from '../components/Footer/Footer'
 import Header from '../components/Header/Header'
@@ -11,6 +12,7 @@ const Home = () => {
 			<main className='flex-1'>
 				<Hero />
 				<Compensations />
+				<Benifits />
 			</main>
 
 			<Footer />
