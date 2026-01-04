@@ -3,7 +3,7 @@ import Fives from '../../assets/svg/5star.svg?react'
 
 const Feedback = () => {
 	return (
-		<section className='relative pb-5 lg:pb-[30px] xl:pb-[40px]'>
+		<section className='relative pb-5 pt-5 lg:pb-[30px] xl:pb-[40px]'>
 			{/* ФОН */}
 			<div className='absolute inset-0 left-1/2 -translate-x-1/2 w-screen bg-white -z-10' />
 

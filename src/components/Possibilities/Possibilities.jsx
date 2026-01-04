@@ -18,7 +18,7 @@ const Possibilities = () => {
 				>
 					{/* ЛЕВО: текст */}
 					<div className='flex-1 min-w-0 font-golos'>
-						<h3
+						<h2
 							className='
 								w-full font-golos font-semibold
 								text-[20px] md:text-[24px] lg:text-[30px] xl:text-[40px]
@@ -26,7 +26,7 @@ const Possibilities = () => {
 							'
 						>
 							Лучшие возможности по выбору части
-						</h3>
+						</h2>
 
 						<div className='mt-5 max-w-[560px]'>
 							<p className='font-golos font-normal text-[16px] lg:text-[21px] '>
