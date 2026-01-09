@@ -1,11 +1,12 @@
 import Fours from '../../assets/svg/4star.svg?react'
 import Fives from '../../assets/svg/5star.svg?react'
+import Fullbleed from '../Fullbleed/Fullbleed'
 
 const Feedback = () => {
 	return (
 		<section className='relative pb-5 pt-5 lg:pb-[30px] xl:pb-[40px]'>
 			{/* ФОН */}
-			<div className='absolute inset-0 left-1/2 -translate-x-1/2 w-screen bg-white -z-10' />
+			<Fullbleed className='bg-white' />
 
 			{/* КОНТЕНТ */}
 			<div className='relative z-10 flex flex-col items-center gap-5 w-full px-2.5 min-[1199px]:px-[20px]'>

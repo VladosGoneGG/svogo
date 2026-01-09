@@ -1,6 +1,7 @@
 import { motion } from 'motion/react'
 import { useController, useForm } from 'react-hook-form'
 import Gerbmd from '../../assets/images/gerbmd.webp'
+import Fullbleed from '../Fullbleed/Fullbleed'
 
 const QUESTIONS = [
 	{
@@ -53,7 +54,7 @@ const Consultation = () => {
 
 	return (
 		<section className='relative pb-5 pt-5 lg:pb-[30px] xl:pb-[40px]'>
-			<div className='absolute inset-0 left-1/2 -translate-x-1/2 w-screen bg-white -z-10' />
+			<Fullbleed className='bg-white' />
 
 			<div className='w-full  px-2.5 min-[1199px]:px-[20px]'>
 				<div className='bg-[#c3c6d0] rounded-[30px] px-4 py-5 md:px-6 md:py-6 lg:px-8 lg:py-8'>

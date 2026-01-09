@@ -3,6 +3,7 @@
 
 body {
 	background-color: #eee;
+	overflow-x: clip;
 }
 
 @theme {

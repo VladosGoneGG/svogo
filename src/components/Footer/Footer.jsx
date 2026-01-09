@@ -1,5 +1,5 @@
+import Telega from '../../assets/images/telegrami.png'
 import Logo from '../../assets/svg/Logo.svg?react'
-import Tgfoot from '../../assets/svg/tgfoot.svg?react'
 
 const Footer = () => {
 	return (
@@ -21,9 +21,9 @@ const Footer = () => {
 
 							<a
 								href='/'
-								className='flex items-center justify-center shrink-0 w-7.5 h-7.5 rounded-[10px] bg-[linear-gradient(225deg,_#039be5_0%,_#006ca1_100%)]'
+								className='flex items-center justify-center shrink-0 w-7.5 h-7.5 rounded-[10px]'
 							>
-								<Tgfoot className='w-4 h-4 text-white fill-current' />
+								<img src={Telega} alt='Телеграм' />
 							</a>
 						</div>
 

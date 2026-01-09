@@ -1,3 +1,5 @@
+import Fullbleed from '../Fullbleed/Fullbleed'
+
 const ITEMS = [
 	{
 		title: 'Единовременная выплата',
@@ -79,7 +81,7 @@ const innerBase =
 const Compensations = () => {
 	return (
 		<section className='relative flex flex-col items-center pt-5 pb-5 lg:pb-[30px] xl:pb-[40px]'>
-			<div className='absolute inset-0 bg-white -left-[50vw] left-1/2 -translate-x-1/2 w-screen -z-10' />
+			<Fullbleed className='bg-white' />
 
 			<div
 				className='relative flex flex-col gap-5 w-full px-2.5 min-[1199px]:px-[20px]

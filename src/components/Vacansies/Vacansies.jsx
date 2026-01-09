@@ -1,3 +1,4 @@
+import Fullbleed from '../Fullbleed/Fullbleed'
 import VacancyRow from '../VacancyRow/VacancyRow'
 import Parad from './../../assets/images/garant.webp'
 
@@ -51,7 +52,7 @@ const Vacansies = () => {
 	return (
 		<section className='relative flex flex-col items-center pb-5 lg:pb-[30px] xl:pb-[40px] pt-5'>
 			{/* фон на всю ширину */}
-			<div className='absolute inset-0 bg-white -left-[50vw] left-1/2 -translate-x-1/2 w-screen -z-10' />
+			<Fullbleed className='bg-white' />
 
 			{/* контент */}
 			<div className='flex flex-col items-center gap-5 w-full px-2.5 min-[1199px]:px-[20px]'>

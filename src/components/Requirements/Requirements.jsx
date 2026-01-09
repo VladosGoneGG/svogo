@@ -1,10 +1,11 @@
 import Gerb from '../../assets/images/gerb.png'
+import Fullbleed from '../Fullbleed/Fullbleed'
 
 const Requirements = () => {
 	return (
 		<section className='relative flex flex-col justify-center items-start pb-5 lg:pb-[30px] xl:pb-[40px] pt-5'>
 			{/* БЕЛЫЙ ФОН НА ВСЮ ШИРИНУ ЭКРАНА */}
-			<div className='absolute inset-0 left-1/2 -translate-x-1/2 w-screen bg-white -z-10' />
+			<Fullbleed className='bg-white' />
 
 			<div className='flex flex-col justify-center items-start sm:items-center px-2.5 lg:px-5 md:flex-row w-full md:gap-10 '>
 				{/* ЛЕВАЯ КОЛОНКА */}

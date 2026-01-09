@@ -3,11 +3,12 @@ import Inn from '../../assets/images/inn.webp'
 import Passport from '../../assets/images/passport.webp'
 import Snils from '../../assets/images/snils.webp'
 import DashedBorder from '../DashedBorder/DashedBorder'
+import Fullbleed from '../Fullbleed/Fullbleed'
 
 const Papers = () => {
 	return (
 		<section className='relative pb-5 pt-5 lg:pb-[30px] xl:pb-[40px]'>
-			<div className='absolute inset-0 left-1/2 -translate-x-1/2 w-screen bg-white -z-10' />
+			<Fullbleed className='bg-white' />
 			{/* КОНТЕНТ */}
 			<div className='flex flex-col font-golos items-start gap-5 w-full px-2.5 min-[1199px]:px-[20px]'>
 				<div className='flex flex-col gap-5 px-2.5 md:px-5'>

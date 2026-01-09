@@ -4,6 +4,7 @@ import StIcon3 from '../../assets/svg/st-3.svg?react'
 import StIcon4 from '../../assets/svg/st-4.svg?react'
 import StIcon5 from '../../assets/svg/st-5.svg?react'
 import DashedBorder from '../DashedBorder/DashedBorder'
+import Fullbleed from '../Fullbleed/Fullbleed'
 
 const Stages = () => {
 	// общий класс для пунктирных карточек (твои стили не ломаю)
@@ -20,7 +21,7 @@ const Stages = () => {
 
 	return (
 		<section className='relative flex flex-col justify-center items-start pb-5 lg:pb-[30px] xl:pb-[40px] pt-5 px-2.5 min-[1199px]:px-[20px]'>
-			<div className='absolute inset-0 left-1/2 -translate-x-1/2 w-screen bg-white -z-10' />
+			<Fullbleed className='bg-white' />
 
 			<div className='w-full  max-w-[405px] max-[766px]:max-w-none md:max-w-none'>
 				<div className='w-full max-w-[405px] max-[766px]:max-w-none md:max-w-none'>

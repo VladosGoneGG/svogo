@@ -32,7 +32,7 @@ const LeftColumn = ({
 	}`
 
 	return (
-		<div className='order-2 md:order-1 relative flex flex-col w-full min-w-[414px]'>
+		<div className='order-2 md:order-1 relative flex flex-col w-full  md:min-w-[414px]'>
 			<div className='absolute -inset-[0px] pointer-events-none'>
 				<DashedBorder strokeWidth={2} dashArray='10 10' radius={20} />
 			</div>
