@@ -3,8 +3,17 @@ import Logo from '../../assets/svg/Logo.svg?react'
 import Tg from '../../assets/svg/telegram.svg?react'
 import Burger from '../Burger/Burger'
 
+// ✅ добавь импорты (пути под себя)
+import { usePopupFlow } from '../../hooks/usePopupFlow'
+import Modal from '../Modal/Modal'
+import Popup from '../Popup/Popup'
+import Popupok from '../Popupok/Popupok'
+
 const Header = () => {
 	const [isBurgerOpen, setIsBurgerOpen] = useState(false)
+
+	// ✅ общий флоу для callback-попапа
+	const callPopup = usePopupFlow()
 
 	useEffect(() => {
 		if (!isBurgerOpen) return
@@ -25,11 +34,11 @@ const Header = () => {
 	return (
 		<header
 			className='
-				sticky top-0 z-40
-				min-[960px]:static
-				bg-[#eee]
-				max-w-106.25 h-19 min-[426px]:max-w-239.75 min-[960px]:max-w-300
-			'
+        sticky top-0 z-40
+        min-[960px]:static
+        bg-[#eee]
+        max-w-106.25 h-19 min-[426px]:max-w-239.75 min-[960px]:max-w-300
+      '
 		>
 			<div className=' flex items-center justify-between p-2.5 min-[960px]:p-5'>
 				<a href='/'>
@@ -58,7 +67,12 @@ const Header = () => {
 						</a>
 					</div>
 
-					<button className='hidden w-38.5 h-9.25 bg-[#D14E15] font-inter text-[14px] font-semibold text-white rounded-[10px] min-[1200px]:flex items-center justify-center cursor-pointer'>
+					{/* ✅ НЕ ломаю стили — только onClick */}
+					<button
+						type='button'
+						onClick={callPopup.open}
+						className='hidden w-38.5 h-9.25 bg-[#D14E15] font-inter text-[14px] font-semibold text-white rounded-[10px] min-[1200px]:flex items-center justify-center cursor-pointer'
+					>
 						Обратный звонок
 					</button>
 
@@ -76,6 +90,15 @@ const Header = () => {
 			</div>
 
 			<Burger open={isBurgerOpen} onClose={() => setIsBurgerOpen(false)} />
+
+			{/* ✅ Модалка “Обратный звонок” */}
+			<Modal isOpen={callPopup.isOpen} onClose={callPopup.close}>
+				{callPopup.isSuccess ? (
+					<Popupok onClose={callPopup.close} />
+				) : (
+					<Popup onSuccess={callPopup.success} />
+				)}
+			</Modal>
 		</header>
 	)
 }
