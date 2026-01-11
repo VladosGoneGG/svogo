@@ -1,29 +1,29 @@
+import { AnimatePresence, motion } from 'motion/react'
+import { usePopupFlow } from '../../hooks/usePopupFlow'
 import Heroicons from '../Heroicons/Heroicons'
+import Modal from '../Modal/Modal'
+import Popup from '../Popup/Popup'
+import Popupok from '../Popupok/Popupok'
 import stylesCss from './Hero.module.css'
 
 const Hero = () => {
+	const popup = usePopupFlow()
+
 	return (
 		<section className='mt-4 px-2.5 lg:px-5'>
 			<div
 				className={[
 					stylesCss.heroBg,
-					// карточка
 					'relative mx-auto w-full overflow-hidden rounded-[30px]',
 					'w-full  md:max-w-[1200px]',
-					// нужная высота на средних экранах
 					'min-h-[clamp(420px,55vw,620px)]',
-					// ✅ ВАЖНО: делаем контейнер flex, чтобы управлять вертикалью контента
 					'flex',
-					// паддинги плавно
 					'px-[clamp(20px,3vw,44px)] py-[clamp(20px,3.2vw,48px)]',
 					'text-white',
 				].join(' ')}
 			>
-				{/* ✅ ВАЖНО: этот блок растягивается по высоте hero */}
 				<div className='relative z-10 flex w-full'>
-					{/* ✅ ВАЖНО: на больших экранах центрируем по вертикали (без скачков) */}
 					<div className='flex w-full  items-end md:items-center'>
-						{/* Левый контент */}
 						<div className='w-full max-w-[350px] min-[550px]:max-w-[500px] md:max-w-[550px] xl:max-w-[650px] flex flex-col '>
 							<div className='font-golos pb-[15px] min-[425px]:pb-[10px] xl:pb-[25px] min-[559px]:pb-[50px] '>
 								<h1 className='font-semibold  text-[20px]  md:text-[24px] lg:text-[30px] xl:text-[45px] '>
@@ -51,10 +51,9 @@ const Hero = () => {
 							</div>
 
 							<button
+								onClick={popup.open}
 								className={[
-									// мобилка: во всю ширину
 									'w-full',
-									// ширина кнопки плавная
 									'md:max-w-[450px]',
 									'h-[37px] md:h-[62px]',
 									'rounded-[10px]',
@@ -73,6 +72,33 @@ const Hero = () => {
 			</div>
 
 			<Heroicons />
+
+			{/* Модалка */}
+			<Modal isOpen={popup.isOpen} onClose={popup.close}>
+				<AnimatePresence mode='wait'>
+					{popup.isSuccess ? (
+						<motion.div
+							key='success'
+							initial={{ opacity: 0, y: 10, scale: 0.99 }}
+							animate={{ opacity: 1, y: 0, scale: 1 }}
+							exit={{ opacity: 0, y: -8, scale: 0.99 }}
+							transition={{ duration: 0.18 }}
+						>
+							<Popupok onClose={popup.close} />
+						</motion.div>
+					) : (
+						<motion.div
+							key='form'
+							initial={{ opacity: 0, y: 10, scale: 0.99 }}
+							animate={{ opacity: 1, y: 0, scale: 1 }}
+							exit={{ opacity: 0, y: -8, scale: 0.99 }}
+							transition={{ duration: 0.18 }}
+						>
+							<Popup onSuccess={popup.success} />
+						</motion.div>
+					)}
+				</AnimatePresence>
+			</Modal>
 		</section>
 	)
 }

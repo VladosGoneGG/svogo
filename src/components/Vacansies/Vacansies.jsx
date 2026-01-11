@@ -50,12 +50,12 @@ const VACANCIES = [
 
 const Vacansies = () => {
 	return (
-		<section className='relative flex flex-col items-center pb-5 lg:pb-[30px] xl:pb-[40px] pt-5'>
+		<section className='relative flex flex-col items-center pb-5 lg:pb-[30px] xl:pb-[40px] pt-5 lg:pt-7.5'>
 			{/* фон на всю ширину */}
 			<Fullbleed className='bg-white' />
 
 			{/* контент */}
-			<div className='flex flex-col items-center gap-5 w-full px-2.5 min-[1199px]:px-[20px]'>
+			<div className='flex flex-col items-center gap-5 lg:gap-7.5 w-full px-2.5 min-[1199px]:px-[20px]'>
 				<div className='w-full '>
 					<h3
 						className='

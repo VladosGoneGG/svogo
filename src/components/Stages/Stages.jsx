@@ -20,7 +20,7 @@ const Stages = () => {
 	}
 
 	return (
-		<section className='relative flex flex-col justify-center items-start pb-5 lg:pb-[30px] xl:pb-[40px] pt-5 px-2.5 min-[1199px]:px-[20px]'>
+		<section className='relative flex flex-col justify-center items-start py-5 lg:py-[30px] xl:py-[40px]  px-2.5 min-[1199px]:px-[20px]'>
 			<Fullbleed className='bg-white' />
 
 			<div className='w-full  max-w-[405px] max-[766px]:max-w-none md:max-w-none'>

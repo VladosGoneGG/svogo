@@ -4,12 +4,12 @@ import Fullbleed from '../Fullbleed/Fullbleed'
 
 const Feedback = () => {
 	return (
-		<section className='relative pb-5 pt-5 lg:pb-[30px] xl:pb-[40px]'>
+		<section className='relative py-5 lg:py-[30px] xl:py-[40px]'>
 			{/* ФОН */}
 			<Fullbleed className='bg-white' />
 
 			{/* КОНТЕНТ */}
-			<div className='relative z-10 flex flex-col items-center gap-5 w-full px-2.5 min-[1199px]:px-[20px]'>
+			<div className='relative z-10 flex flex-col items-center gap-5 md:gap-7.5 w-full px-2.5 min-[1199px]:px-[20px]'>
 				<h2
 					className='
 						w-full text-contrast font-inter font-semibold

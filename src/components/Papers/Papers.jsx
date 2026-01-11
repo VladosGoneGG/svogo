@@ -7,7 +7,10 @@ import Fullbleed from '../Fullbleed/Fullbleed'
 
 const Papers = () => {
 	return (
-		<section className='relative pb-5 pt-5 lg:pb-[30px] xl:pb-[40px]'>
+		<section
+			id='documents'
+			className='relative py-5 lg:py-[30px] xl:py-[40px] scroll-mt-20'
+		>
 			<Fullbleed className='bg-white' />
 			{/* КОНТЕНТ */}
 			<div className='flex flex-col font-golos items-start gap-5 w-full px-2.5 min-[1199px]:px-[20px]'>

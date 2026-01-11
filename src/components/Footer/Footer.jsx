@@ -1,12 +1,31 @@
+import { usePopupFlow } from '../../hooks/usePopupFlow'
+
 import Telega from '../../assets/images/telegrami.png'
 import Logo from '../../assets/svg/Logo.svg?react'
 
+// ✅ пути под себя
+import Modal from '../Modal/Modal'
+import Popup from '../Popup/Popup'
+import Popupok from '../Popupok/Popupok'
+
 const Footer = () => {
+	const callPopup = usePopupFlow()
+
 	return (
 		<footer className='relative w-full'>
 			<div className='absolute inset-0 left-1/2 -translate-x-1/2 w-screen bg-[#1d1e21] -z-10' />
 
-			<div className='w-full mx-auto max-w-106.25 min-[426px]:max-w-239.75 min-[960px]:max-w-300 px-2.5 pt-2.5 min-[960px]:px-5 flex flex-col gap-5 text-white'>
+			<div
+				className='
+          w-full mx-auto
+          max-w-106.25 min-[426px]:max-w-239.75 min-[960px]:max-w-300
+          px-2.5 pt-2.5 pb-5
+          lg:pt-7.5 lg:pb-10 xl:pb-12.5
+          min-[960px]:px-5
+          flex flex-col gap-5
+          text-white
+        '
+			>
 				<div className='flex flex-col pl-10 items-center gap-5 min-[426px]:flex-row min-[426px]:items-start min-[426px]:justify-between'>
 					<div className='flex flex-col items-start gap-2.5 w-full min-[426px]:max-w-75 min-[1200px]:gap-5'>
 						<Logo />
@@ -27,7 +46,12 @@ const Footer = () => {
 							</a>
 						</div>
 
-						<button className='w-full max-w-[250px] h-15.5 rounded-[15px] text-white bg-[#D14E15] font-inter font-bold text-[18px] cursor-pointer shadow-btn'>
+						{/* ✅ НЕ ломаю стили, просто добавил onClick */}
+						<button
+							type='button'
+							onClick={callPopup.open}
+							className='w-full max-w-[250px] h-15.5 rounded-[15px] text-white bg-[#D14E15] font-inter font-bold text-[18px] cursor-pointer shadow-btn'
+						>
 							Обратный звонок
 						</button>
 					</div>
@@ -62,7 +86,6 @@ const Footer = () => {
 								</ul>
 							</div>
 
-							{/* ЛИНИЯ — ТОЛЬКО КОГДА GRID (КОЛОНКИ) */}
 							<div className='col-span-2 h-px bg-white rounded min-[960px]:hidden' />
 
 							<div>
@@ -107,6 +130,14 @@ const Footer = () => {
 					</div>
 				</div>
 			</div>
+
+			<Modal isOpen={callPopup.isOpen} onClose={callPopup.close}>
+				{callPopup.isSuccess ? (
+					<Popupok onClose={callPopup.close} />
+				) : (
+					<Popup onSuccess={callPopup.success} />
+				)}
+			</Modal>
 		</footer>
 	)
 }

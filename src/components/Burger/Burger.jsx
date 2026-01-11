@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from 'motion/react'
+import { useCallback } from 'react'
 import Telega from '../../assets/images/telegrami.png'
 import Logo from '../../assets/svg/Logo.svg?react'
 
@@ -12,12 +13,23 @@ const NAV = [
 ]
 
 const Burger = ({ open, onClose }) => {
-	const handleNavClick = href => {
-		onClose?.()
-		// optional scroll:
-		// const el = document.querySelector(href)
-		// if (el) el.scrollIntoView({ behavior: 'smooth' })
-	}
+	const handleNavClick = useCallback(
+		href => {
+			onClose?.()
+
+			// Небольшая задержка для анимации закрытия меню
+			setTimeout(() => {
+				const el = document.querySelector(href)
+				if (el) {
+					el.scrollIntoView({
+						behavior: 'smooth',
+						block: 'start', // можно настроить: 'start', 'center', 'end'
+					})
+				}
+			}, 100) // Задержка перед скроллом
+		},
+		[onClose]
+	)
 
 	return (
 		<AnimatePresence>
@@ -82,7 +94,10 @@ const Burger = ({ open, onClose }) => {
 										<li key={item.label}>
 											<a
 												href={item.href}
-												onClick={() => handleNavClick(item.href)}
+												onClick={e => {
+													e.preventDefault()
+													handleNavClick(item.href)
+												}}
 												className='inline-block'
 											>
 												{item.label}

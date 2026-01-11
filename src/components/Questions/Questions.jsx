@@ -200,13 +200,13 @@ const Questions = () => {
 	}
 
 	return (
-		<section className='py-10 md:py-12'>
+		<section className=' py-5 lg:py-7.5 xl:py-10'>
 			<div className='mx-auto w-full max-w-[1200px] px-2.5 lg:px-5'>
 				<h2 className='font-inter font-bold text-[#D85A1A] text-[20px] md:text-[36px] lg:text-[44px] '>
 					Отвечаем на часто задаваемые вопросы
 				</h2>
 
-				<div className='mt-8 md:mt-10'>
+				<div className='mt-5 lg:7-5 xl:mt-10'>
 					<div className='md:hidden'>
 						<div className='flex flex-col gap-2.5'>
 							{DATA.map((item, idx) => (

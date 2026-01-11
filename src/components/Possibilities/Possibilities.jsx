@@ -3,7 +3,7 @@ import Drons from '../../assets/images/drons.webp'
 
 const Possibilities = () => {
 	return (
-		<section className='relative pb-5 lg:pb-[30px] xl:pb-[40px] pt-5'>
+		<section className='relative pb-5 lg:py-[30px] xl:py-[40px] py-5'>
 			{/* ФОН */}
 			<div className='absolute inset-0 left-1/2 -translate-x-1/2 w-screen  -z-10' />
 

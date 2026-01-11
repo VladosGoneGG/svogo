@@ -3,18 +3,21 @@ import Fullbleed from '../Fullbleed/Fullbleed'
 
 const Requirements = () => {
 	return (
-		<section className='relative flex flex-col justify-center items-start pb-5 lg:pb-[30px] xl:pb-[40px] pt-5'>
+		<section
+			id='requirements'
+			className='relative flex flex-col justify-center items-start pb-5 lg:py-[30px] xl:py-[40px] pt-5 scroll-mt-20 '
+		>
 			{/* БЕЛЫЙ ФОН НА ВСЮ ШИРИНУ ЭКРАНА */}
 			<Fullbleed className='bg-white' />
 
-			<div className='flex flex-col justify-center items-start sm:items-center px-2.5 lg:px-5 md:flex-row w-full md:gap-10 '>
+			<div className='flex flex-col gap-5 justify-center items-start md:items-center px-2.5 lg:px-5 md:flex-row w-full md:gap-10 '>
 				{/* ЛЕВАЯ КОЛОНКА */}
-				<div className='flex w-full md:max-w-[310px] md:min-h-[634px] flex-col justify-start gap-5 md:justify-between min-[960px]:justify-evenly lg:max-w-[405px] xl:max-w-[548px] '>
-					<h2 className='w-full font-golos text-contrast font-semibold text-[20px] md:text-[30px] md:max-w-[350px] lg:text-[30px] xl:text-[40px] xl:max-w-[508px]'>
+				<div className='flex w-full md:h-[580px] flex-col justify-start gap-5 md:justify-between  md:max-w-[350px] lg:max-w-[400px] xl:max-w-[580px] '>
+					<h2 className='w-full font-golos text-contrast font-semibold text-[20px] md:text-[24px]  lg:text-[30px] xl:text-[40px] xl:max-w-[508px]'>
 						Требования и условия для службы по контракту
 					</h2>
 
-					<p className='w-full font-golos font-normal text-[14px] md:text-[21px] md:max-w-[350px] lg:text-[21px] xl:max-w-[508px]'>
+					<p className='w-full font-golos font-normal text-[14px] md:text-[16px] lg:text-[21px] xl:max-w-[508px]'>
 						Мы заранее проверим вашу годность, условия ВВК и подскажем, какие
 						документы нужны для допуска к контракту. Консультация бесплатная
 					</p>
@@ -44,85 +47,81 @@ const Requirements = () => {
 				</div>
 
 				{/* ПРАВАЯ КОЛОНКА */}
-				<div className='flex w-full md:min-h-[634px] mt-5 md:mt-0'>
-					<div className='flex flex-col gap-7 justify-between '>
-						{/* 01 */}
-						<div className='flex items-start gap-4'>
-							<div className='w-[44px] h-[44px] rounded-full bg-[#6f7176] flex items-center justify-center shrink-0'>
-								<span className='font-inter font-semibold text-white text-[14px]'>
-									01
-								</span>
-							</div>
-							<div className='flex w-full max-w-[320px] sm:max-w-[500px] lg:max-w-[615px] flex-col gap-2.5'>
-								<p className='font-golos font-semibold text-[20px] text-contrast'>
-									Возраст
-								</p>
-								<p className='font-golos font-medium text-[14px] text-[#222] leading-5'>
-									От 18 до 63 лет включительно. <br />
-									Образование — не ниже 9 класса. <br />
-									Преимущество имеют кандидаты с опытом службы или профильной
-									подготовкой
-								</p>
-							</div>
-						</div>
 
-						{/* 02 */}
-						<div className='flex items-start gap-4'>
-							<div className='w-[44px] h-[44px] rounded-full bg-[#6f7176] flex items-center justify-center shrink-0'>
-								<span className='font-inter font-semibold text-white text-[14px]'>
-									02
-								</span>
-							</div>
-							<div className='flex w-full max-w-[320px] sm:max-w-[500px] md:max-w-none flex-col gap-2.5'>
-								<p className='font-golos font-semibold text-[20px] text-contrast'>
-									Гражданство
-								</p>
-								<p className='font-golos font-medium text-[14px] text-[#222] leading-5'>
-									Граждане Российской Федерации, а также иностранные граждане,
-									<br />
-									имеющие необходимые документы
-								</p>
-							</div>
+				<div className='flex flex-col gap-7.5 md:justify-between h-full md:h-[570px] xl:max-h-[580px] '>
+					{/* 01 */}
+					<div className='flex items-start gap-4'>
+						<div className='w-[44px] h-[44px] rounded-full bg-[#6f7176] flex items-center justify-center shrink-0'>
+							<span className='font-inter font-semibold text-white text-[14px]'>
+								01
+							</span>
 						</div>
-
-						{/* 03 */}
-						<div className='flex items-start gap-4'>
-							<div className='w-[44px] h-[44px] rounded-full bg-[#6f7176] flex items-center justify-center shrink-0'>
-								<span className='font-inter font-semibold text-white text-[14px]'>
-									03
-								</span>
-							</div>
-							<div className='flex w-full max-w-[320px] sm:max-w-[500px] md:max-w-none flex-col gap-2.5'>
-								<p className='font-golos font-semibold text-[20px] text-contrast'>
-									Отсутствие судимости по статьям
-								</p>
-								<p className='font-golos font-medium text-[14px] text-[#222] leading-5'>
-									Кандидат не должен иметь непогашенной судимости по тяжким и
-									<br />
-									особо тяжким статьям. <br />
-									Проверка проводится официально по базам МВД
-								</p>
-							</div>
+						<div className='flex w-full max-w-[320px] sm:max-w-[500px] lg:max-w-[615px] flex-col gap-2.5'>
+							<p className='font-golos font-semibold text-[20px] text-contrast'>
+								Возраст
+							</p>
+							<p className='font-golos font-medium text-[14px] text-[#222] leading-5'>
+								От 18 до 63 лет включительно. Образование — не ниже 9 класса.
+								Преимущество имеют кандидаты с опытом службы или профильной
+								подготовкой
+							</p>
 						</div>
+					</div>
 
-						{/* 04 */}
-						<div className='flex items-start gap-4'>
-							<div className='w-[44px] h-[44px] rounded-full bg-[#6f7176] flex items-center justify-center shrink-0'>
-								<span className='font-inter font-semibold text-white text-[14px]'>
-									04
-								</span>
-							</div>
-							<div className='flex w-full max-w-[320px] sm:max-w-[500px] md:max-w-none flex-col gap-2.5'>
-								<p className='font-golos font-semibold text-[20px] text-contrast'>
-									Категория здоровья
-								</p>
-								<p className='font-golos font-medium text-[14px] text-[#222] leading-5'>
-									Категория годности A, Б или В по итогам военно-врачебной
-									<br />
-									комиссии. <br />
-									Отсутствие противопоказаний, препятствующих службе
-								</p>
-							</div>
+					{/* 02 */}
+					<div className='flex items-start gap-4'>
+						<div className='w-[44px] h-[44px] rounded-full bg-[#6f7176] flex items-center justify-center shrink-0'>
+							<span className='font-inter font-semibold text-white text-[14px]'>
+								02
+							</span>
+						</div>
+						<div className='flex w-full max-w-[320px] sm:max-w-[500px] md:max-w-none flex-col gap-2.5'>
+							<p className='font-golos font-semibold text-[20px] text-contrast'>
+								Гражданство
+							</p>
+							<p className='font-golos font-medium text-[14px] text-[#222] leading-5'>
+								Граждане Российской Федерации, а также иностранные граждане,
+								<br />
+								имеющие необходимые документы
+							</p>
+						</div>
+					</div>
+
+					{/* 03 */}
+					<div className='flex items-start gap-4'>
+						<div className='w-[44px] h-[44px] rounded-full bg-[#6f7176] flex items-center justify-center shrink-0'>
+							<span className='font-inter font-semibold text-white text-[14px]'>
+								03
+							</span>
+						</div>
+						<div className='flex w-full max-w-[320px] sm:max-w-[500px] md:max-w-none flex-col gap-2.5'>
+							<p className='font-golos font-semibold text-[20px] text-contrast'>
+								Отсутствие судимости по статьям
+							</p>
+							<p className='font-golos font-medium text-[14px] text-[#222] leading-5'>
+								Кандидат не должен иметь непогашенной судимости по тяжким и
+								<br />
+								особо тяжким статьям. Проверка проводится официально по базам
+								МВД
+							</p>
+						</div>
+					</div>
+
+					{/* 04 */}
+					<div className='flex items-start gap-4'>
+						<div className='w-[44px] h-[44px] rounded-full bg-[#6f7176] flex items-center justify-center shrink-0'>
+							<span className='font-inter font-semibold text-white text-[14px]'>
+								04
+							</span>
+						</div>
+						<div className='flex w-full max-w-[320px] sm:max-w-[500px] md:max-w-none flex-col gap-2.5'>
+							<p className='font-golos font-semibold text-[20px] text-contrast'>
+								Категория здоровья
+							</p>
+							<p className='font-golos font-medium text-[14px] text-[#222] leading-5'>
+								Категория годности A, Б или В по итогам военно-врачебной
+								комиссии. Отсутствие противопоказаний, препятствующих службе
+							</p>
 						</div>
 					</div>
 				</div>

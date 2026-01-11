@@ -1,7 +1,10 @@
 import { motion } from 'motion/react'
 import { useController, useForm } from 'react-hook-form'
 import Gerbmd from '../../assets/images/gerbmd.webp'
+import { usePopupFlow } from '../../hooks/usePopupFlow'
 import Fullbleed from '../Fullbleed/Fullbleed'
+import Modal from '../Modal/Modal'
+import Popupok from '../Popupok/Popupok'
 
 const QUESTIONS = [
 	{
@@ -28,11 +31,14 @@ const QUESTIONS = [
 ]
 
 const Consultation = () => {
+	const popup = usePopupFlow()
+
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 		control,
+		reset,
 	} = useForm({
 		defaultValues: {
 			name: '',
@@ -48,26 +54,39 @@ const Consultation = () => {
 		rules: { required: true },
 	})
 
-	const onSubmit = data => {
-		console.log('Consultation form submit:', data)
+	const onSubmit = async data => {
+		try {
+			console.log('Consultation form submit:', data)
+
+			// ✅ тут твоя реальная отправка
+			// await api.sendConsultation(data)
+
+			// ✅ успех -> показываем Popupok в модалке
+			popup.open()
+			popup.success()
+
+			reset()
+		} catch (e) {
+			console.error('Consultation submit error:', e)
+		}
 	}
 
 	return (
-		<section className='relative pb-5 pt-5 lg:pb-[30px] xl:pb-[40px]'>
+		<section className='relative py-2.5  lg:py-[30px] xl:py-[40px]'>
 			<Fullbleed className='bg-white' />
 
 			<div className='w-full  px-2.5 min-[1199px]:px-[20px]'>
 				<div className='bg-[#c3c6d0] rounded-[30px] px-4 py-5 md:px-6 md:py-6 lg:px-8 lg:py-8'>
 					<h2
 						className='
-							text-[#E05A1A] font-golos font-semibold
-							text-[20px] md:text-[24px] lg:text-[30px] xl:text-[40px]
-						'
+              text-[#E05A1A] font-golos font-semibold
+              text-[20px] md:text-[24px] lg:text-[30px] xl:text-[40px]
+            '
 					>
-						Отвечаем на часто задаваемые вопросы
+						Ответим на Ваши вопросы и поможем разобраться в оформлении контракта
 					</h2>
 
-					<div className='mt-4 flex justify-center'>
+					<div className='mt-5 flex justify-center'>
 						<img
 							src={Gerbmd}
 							alt='Герб'
@@ -118,13 +137,13 @@ const Consultation = () => {
 										type='text'
 										placeholder='Ваше имя'
 										className='
-											w-full rounded-[16px] bg-[#E6E8ED] shadow-item
-											px-[15px] py-[15px] font-golos
-											text-[#1d1e21]
-											placeholder:text-[#9aa0ab] placeholder:text-[16px] placeholder:font-semibold
-											outline-none
-											ring-1 ring-transparent focus:ring-2 focus:ring-[#E05A1A]/60
-										'
+                      w-full rounded-[16px] bg-[#E6E8ED] shadow-item
+                      px-[15px] py-[15px] font-golos
+                      text-[#1d1e21]
+                      placeholder:text-[#9aa0ab] placeholder:text-[16px] placeholder:font-semibold
+                      outline-none
+                      ring-1 ring-transparent focus:ring-2 focus:ring-[#E05A1A]/60
+                    '
 										{...register('name', { required: 'Введите имя' })}
 									/>
 									{errors.name ? (
@@ -137,13 +156,13 @@ const Consultation = () => {
 										type='tel'
 										placeholder='+7 (000) 000-00-00'
 										className='
-											w-full rounded-[16px] mt-2.5 bg-[#E6E8ED] shadow-item
-											px-[15px] py-[15px] font-golos
-											text-[#1d1e21]
-											placeholder:text-[#9aa0ab] placeholder:text-[16px] placeholder:font-semibold
-											outline-none
-											ring-1 ring-transparent focus:ring-2 focus:ring-[#E05A1A]/60
-										'
+                      w-full rounded-[16px] mt-2.5 bg-[#E6E8ED] shadow-item
+                      px-[15px] py-[15px] font-golos
+                      text-[#1d1e21]
+                      placeholder:text-[#9aa0ab] placeholder:text-[16px] placeholder:font-semibold
+                      outline-none
+                      ring-1 ring-transparent focus:ring-2 focus:ring-[#E05A1A]/60
+                    '
 										{...register('phone', { required: 'Введите телефон' })}
 									/>
 									{errors.phone ? (
@@ -164,7 +183,6 @@ const Consultation = () => {
 											mass: 0.6,
 										}}
 									>
-										{/* кликабельная часть чекбокса */}
 										<button
 											type='button'
 											className='inline-flex items-center gap-2.5 cursor-pointer group select-none'
@@ -205,13 +223,13 @@ const Consultation = () => {
 									<button
 										type='submit'
 										className='
-											mt-2 w-full h-[62px] mt-5 rounded-[15px] cursor-pointer
-											bg-contrast shadow-item text-white
-											py-4 font-inter font-bold
-											text-[18px]
-											uppercase
-											active:scale-[0.99]
-										'
+                      mt-2 w-full h-[62px] mt-5 rounded-[15px] cursor-pointer
+                      bg-contrast shadow-item text-white
+                      py-4 font-inter font-bold
+                      text-[18px]
+                      uppercase
+                      active:scale-[0.99]
+                    '
 									>
 										получить консультацию
 									</button>
@@ -226,6 +244,11 @@ const Consultation = () => {
 					</div>
 				</div>
 			</div>
+
+			{/* ✅ Модалка успеха */}
+			<Modal isOpen={popup.isOpen} onClose={popup.close}>
+				<Popupok onClose={popup.close} />
+			</Modal>
 		</section>
 	)
 }

@@ -80,7 +80,10 @@ const innerBase =
 
 const Compensations = () => {
 	return (
-		<section className='relative flex flex-col items-center pt-5 pb-5 lg:pb-[30px] xl:pb-[40px]'>
+		<section
+			id='payments'
+			className='relative flex flex-col items-center pt-7.5 pb-5 lg:pb-[30px] xl:pb-[40px] scroll-mt-20'
+		>
 			<Fullbleed className='bg-white' />
 
 			<div
@@ -88,7 +91,7 @@ const Compensations = () => {
 				max-[425px]:h-auto'
 			>
 				<div className='w-full max-w-[405px] max-[766px]:max-w-none  md:max-w-none'>
-					<h3 className='w-full max-w-[365px] max-[766px]:max-w-none font-inter font-semibold text-[20px] md:text-[24px]  lg:text-[30px] xl:text-[40px] px-5 md:max-w-none'>
+					<h3 className='w-full max-w-[365px] max-[766px]:max-w-none font-inter font-semibold text-[20px] md:text-[24px] lg:pb-2.5 lg:text-[30px] xl:text-[40px] px-5 md:max-w-none'>
 						Выплаты и компенсации по контракту СВО в 2025 году
 					</h3>
 				</div>
@@ -122,7 +125,7 @@ const Compensations = () => {
 				</div>
 
 				<div className='w-full flex justify-center items-center max-w-[405px] max-[766px]:max-w-none max-[425px]:h-auto md:max-w-none'>
-					<h3 className='w-full max-w-[365px] px-5 max-[766px]:max-w-none font-inter font-semibold text-[18px] md:text-[22px] lg:text-[24px] xl:text-[30px] text-black md:max-w-none'>
+					<h3 className='w-full max-w-[365px] px-5 max-[766px]:max-w-none font-inter font-semibold text-[18px] md:text-[22px] lg:pt-2.5 lg:text-[24px] xl:text-[30px] text-black md:max-w-none'>
 						Все выплаты - официальные. Помогаем разобраться в условиях и
 						получить положенные суммы
 					</h3>

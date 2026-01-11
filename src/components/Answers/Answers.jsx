@@ -1,15 +1,22 @@
 import { useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
-
+import { usePopupFlow } from '../../hooks/usePopupFlow'
 import { STEPS } from './steps'
 import { makeOptionsLabelMap } from './utils'
 import { isValidBirthDate, isValidRuPhone } from './validators'
 
 import { Header, LeftColumn, RightColumn } from './ui'
 
+// добавь импорты (пути под себя)
+import Modal from '../Modal/Modal'
+import Popupok from '../Popupok/Popupok'
+
 const Answers = () => {
 	const [step, setStep] = useState(1)
 	const [isContacts, setIsContacts] = useState(false)
+
+	// состояние для модалки успеха
+	const okPopup = usePopupFlow()
 
 	const {
 		register,
@@ -18,6 +25,7 @@ const Answers = () => {
 		watch,
 		getValues,
 		trigger,
+		reset, // опционально
 		formState: { errors, isSubmitting },
 	} = useForm({
 		mode: 'onChange',
@@ -66,7 +74,6 @@ const Answers = () => {
 	const canNextQuiz = useMemo(() => {
 		if (!currentStep) return false
 
-		// шаг 2: выбран health + валидная дата
 		if (currentStep.id === 2) {
 			return Boolean(pickedValue) && isValidBirthDate(birthDate)
 		}
@@ -74,7 +81,6 @@ const Answers = () => {
 		return Boolean(pickedValue)
 	}, [currentStep, birthDate, pickedValue])
 
-	// важно: кнопка "Получить условия" активна когда RHF видит валидные значения
 	const canSubmit = useMemo(() => {
 		return (
 			Boolean((fio || '').trim()) && isValidRuPhone(phone) && Boolean(agree)
@@ -85,7 +91,6 @@ const Answers = () => {
 		if (isContacts) return
 
 		if (step < 5) {
-			// если на шаге 2 — явно триггерим валидацию даты
 			if (step === 2) {
 				const ok = await trigger('birthDate')
 				if (!ok) return
@@ -95,7 +100,6 @@ const Answers = () => {
 			return
 		}
 
-		// step === 5
 		if (canNextQuiz) setIsContacts(true)
 	}
 
@@ -126,8 +130,8 @@ const Answers = () => {
 		await trigger('agree')
 	}
 
-	const onSubmit = raw => {
-		// id -> label (как просил)
+	// ✅ сабмит контактов (и всего квиза), после успеха показываем Popupok
+	const onSubmit = async raw => {
 		const data = {
 			...raw,
 			military: optionsLabelMap.military?.[raw.military] || raw.military,
@@ -137,14 +141,31 @@ const Answers = () => {
 			priority: optionsLabelMap.priority?.[raw.priority] || raw.priority,
 		}
 
-		console.log('FORM DATA:', data)
+		try {
+			// тут твоя реальная отправка
+			// await api.sendQuiz(data)
+
+			console.log('FORM DATA:', data)
+
+			okPopup.open()
+			okPopup.success()
+
+			reset()
+			setStep(1)
+			setIsContacts(false)
+		} catch (e) {
+			console.error('Submit error:', e)
+			// тут можно показать ошибку/тост
+		}
 	}
 
+	const closeOk = () => setIsOkOpen(false)
+
 	return (
-		<section className='relative pb-5 pt-5 lg:pb-[30px] xl:pb-[40px]'>
+		<section className='relative pb-5 pt-5 lg:py-[30px] xl:pb-[40px]'>
 			<div className='absolute inset-0 left-1/2 -translate-x-1/2 w-screen bg-[#1d1e21] -z-10' />
 
-			<div className='w-full flex flex-col gap-5 px-2.5 min-[1199px]:px-[20px]'>
+			<div className='w-full flex flex-col gap-5 lg:gap-7.5 px-2.5 lg:px-5'>
 				<Header />
 
 				<div className='flex flex-col md:flex-row gap-5'>
@@ -176,6 +197,10 @@ const Answers = () => {
 					/>
 				</div>
 			</div>
+
+			<Modal isOpen={okPopup.isOpen} onClose={okPopup.close}>
+				<Popupok onClose={okPopup.close} />
+			</Modal>
 		</section>
 	)
 }
