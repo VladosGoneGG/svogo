@@ -1,10 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import Logo from '../../assets/svg/Logo.svg?react'
 import Tg from '../../assets/svg/telegram.svg?react'
-import Burger from '../Burger/Burger'
-
-// ✅ добавь импорты (пути под себя)
 import { usePopupFlow } from '../../hooks/usePopupFlow'
+import Burger from '../Burger/Burger'
 import Modal from '../Modal/Modal'
 import Popup from '../Popup/Popup'
 import Popupok from '../Popupok/Popupok'
@@ -12,7 +10,12 @@ import Popupok from '../Popupok/Popupok'
 const Header = () => {
 	const [isBurgerOpen, setIsBurgerOpen] = useState(false)
 
-	// ✅ общий флоу для callback-попапа
+	const handleNavClick = useCallback(href => {
+		const el = document.querySelector(href)
+		if (!el) return
+		el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+	}, [])
+
 	const callPopup = usePopupFlow()
 
 	useEffect(() => {
@@ -45,33 +48,86 @@ const Header = () => {
 					<Logo />
 				</a>
 
-				<ul className='hidden font-golos font-medium text-[14px] w-123.25 h-6.75 min-[960px]:flex items-center justify-between min-[1200px]:text-[16px] min-[1200px]:w-137.75 min-[1200px]:h-7.25'>
-					<li>Выплаты</li>
-					<li>Льготы</li>
-					<li>Требования</li>
-					<li>Документы</li>
-					<li>Специализации</li>
-					<li>Блог</li>
+				<ul className='hidden font-golos font-medium text-[14px] w-123.25 h-6.75 min-[960px]:flex items-center justify-between min-[1200px]:text-[16px] min-[1200px]:w-137.75 min-[1200px]:h-7.25 '>
+					<li>
+						<a
+							className='cursor-pointer hover:text-contrast active:text-contrast/70'
+							onClick={e => {
+								e.preventDefault()
+								handleNavClick('#payments')
+							}}
+						>
+							Выплаты
+						</a>
+					</li>
+					<li>
+						<a
+							className='cursor-pointer hover:text-contrast active:text-contrast/70'
+							onClick={e => {
+								e.preventDefault()
+								handleNavClick('#benefits')
+							}}
+						>
+							Льготы
+						</a>
+					</li>
+					<li>
+						<a
+							className='cursor-pointer hover:text-contrast active:text-contrast/70'
+							onClick={e => {
+								e.preventDefault()
+								handleNavClick('#requirements')
+							}}
+						>
+							Требования
+						</a>
+					</li>
+					<li>
+						<a
+							className='cursor-pointer hover:text-contrast active:text-contrast/70'
+							onClick={e => {
+								e.preventDefault()
+								handleNavClick('#documents')
+							}}
+						>
+							Документы
+						</a>
+					</li>
+					<li>
+						<a
+							href='/'
+							className='cursor-pointer hover:text-contrast active:text-contrast/70'
+						>
+							Специализации
+						</a>
+					</li>
+					<li>
+						<a
+							href='/'
+							className='cursor-pointer hover:text-contrast active:text-contrast/70'
+						>
+							Блог
+						</a>
+					</li>
 				</ul>
 
 				<div className='flex xl:gap-[50px] items-center'>
 					<div className='hidden min-[426px]:flex items-center gap-2.5 mr-3.75 min-[960px]:mr-0 min-[1200px]:mr-3.75'>
 						<a
 							href='tel:+79998887766'
-							className='font-golos font-medium text-[14px] '
+							className='font-golos font-medium text-[14px] cursor-pointer hover:text-contrast active:text-contrast/70'
 						>
 							+7(999)8887766
 						</a>
 						<a href='/'>
-							<Tg />
+							<Tg className='cursor-pointer hover:opacity-90 active:opacity-70' />
 						</a>
 					</div>
 
-					{/* ✅ НЕ ломаю стили — только onClick */}
 					<button
 						type='button'
 						onClick={callPopup.open}
-						className='hidden w-38.5 h-9.25 bg-[#D14E15] font-inter text-[14px] font-semibold text-white rounded-[10px] min-[1200px]:flex items-center justify-center cursor-pointer'
+						className='hidden w-38.5 h-9.25 bg-contrast/90 hover:bg-contrast active:bg-contrast/70 font-inter text-[14px] font-semibold text-white shadow-btn rounded-[10px] min-[1200px]:flex items-center justify-center cursor-pointer'
 					>
 						Обратный звонок
 					</button>
@@ -80,7 +136,7 @@ const Header = () => {
 						type='button'
 						onClick={() => setIsBurgerOpen(true)}
 						aria-label='Открыть меню'
-						className='w-13.5 h-11 rounded-[10px] bg-[#D14E15] flex flex-col items-center justify-center gap-1.5 cursor-pointer shadow-btn min-[960px]:hidden '
+						className='w-13.5 h-11 rounded-[10px] bg-contrast/90 hover:bg-contrast active:bg-contrast/70  flex flex-col items-center justify-center gap-1.5 cursor-pointer shadow-btn min-[960px]:hidden '
 					>
 						<span className='w-4.5 h-0.5 bg-white rounded-full'></span>
 						<span className='w-4.5 h-0.5 bg-white rounded-full'></span>
@@ -91,7 +147,6 @@ const Header = () => {
 
 			<Burger open={isBurgerOpen} onClose={() => setIsBurgerOpen(false)} />
 
-			{/* ✅ Модалка “Обратный звонок” */}
 			<Modal isOpen={callPopup.isOpen} onClose={callPopup.close}>
 				{callPopup.isSuccess ? (
 					<Popupok onClose={callPopup.close} />

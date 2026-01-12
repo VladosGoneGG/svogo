@@ -137,7 +137,7 @@ const Consultation = () => {
 										type='text'
 										placeholder='Ваше имя'
 										className='
-                      w-full rounded-[16px] bg-[#E6E8ED] shadow-item
+                      w-full rounded-[16px] bg-[#E6E8ED] 
                       px-[15px] py-[15px] font-golos
                       text-[#1d1e21]
                       placeholder:text-[#9aa0ab] placeholder:text-[16px] placeholder:font-semibold
@@ -156,7 +156,7 @@ const Consultation = () => {
 										type='tel'
 										placeholder='+7 (000) 000-00-00'
 										className='
-                      w-full rounded-[16px] mt-2.5 bg-[#E6E8ED] shadow-item
+                      w-full rounded-[16px] mt-2.5 bg-[#E6E8ED] 
                       px-[15px] py-[15px] font-golos
                       text-[#1d1e21]
                       placeholder:text-[#9aa0ab] placeholder:text-[16px] placeholder:font-semibold
@@ -224,7 +224,7 @@ const Consultation = () => {
 										type='submit'
 										className='
                       mt-2 w-full h-[62px] mt-5 rounded-[15px] cursor-pointer
-                      bg-contrast shadow-item text-white
+                      bg-contrast/90 hover:bg-contrast active:bg-contrast/70 shadow-item text-white
                       py-4 font-inter font-bold
                       text-[18px]
                       uppercase

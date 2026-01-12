@@ -1,7 +1,13 @@
 import Gerb from '../../assets/images/gerb.png'
+import { usePopupFlow } from '../../hooks/usePopupFlow'
 import Fullbleed from '../Fullbleed/Fullbleed'
+import Modal from '../Modal/Modal'
+import Popup from '../Popup/Popup'
+import Popupok from '../Popupok/Popupok'
 
 const Requirements = () => {
+	const popup = usePopupFlow()
+
 	return (
 		<section
 			id='requirements'
@@ -40,14 +46,17 @@ const Requirements = () => {
 							</div>
 						</div>
 
-						<button className='w-full md:max-w-[350px] xl:max-w-[310px] h-[62px] flex items-center justify-center px-7.5 bg-contrast text-white shadow-btn rounded-[15px] font-inter font-semibold text-[18px] cursor-pointer xl:ml-auto'>
+						<button
+							type='button'
+							onClick={popup.open}
+							className='w-full md:max-w-[350px] xl:max-w-[310px] h-[62px] flex items-center justify-center px-7.5 bg-contrast/90 hover:bg-contrast active:bg-contrast/70 text-white shadow-btn rounded-[15px] font-inter font-semibold text-[18px] cursor-pointer xl:ml-auto'
+						>
 							Задать вопрос
 						</button>
 					</div>
 				</div>
 
 				{/* ПРАВАЯ КОЛОНКА */}
-
 				<div className='flex flex-col gap-7.5 md:justify-between h-full md:h-[570px] xl:max-h-[580px] '>
 					{/* 01 */}
 					<div className='flex items-start gap-4'>
@@ -126,6 +135,14 @@ const Requirements = () => {
 					</div>
 				</div>
 			</div>
+
+			<Modal isOpen={popup.isOpen} onClose={popup.close}>
+				{popup.isSuccess ? (
+					<Popupok onClose={popup.close} />
+				) : (
+					<Popup onSuccess={popup.success} />
+				)}
+			</Modal>
 		</section>
 	)
 }

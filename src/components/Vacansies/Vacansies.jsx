@@ -130,7 +130,7 @@ const Vacansies = () => {
      w-full sm:w-[350px] h-[62px]
     flex items-center justify-center
     px-7.5
-    bg-contrast text-white
+    bg-contrast/90 hover:bg-contrast active:bg-contrast/70 text-white
     shadow-btn rounded-[15px]
     font-inter font-semibold text-[18px]
     cursor-pointer

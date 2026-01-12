@@ -57,7 +57,7 @@ const Hero = () => {
 									'md:max-w-[450px]',
 									'h-[37px] md:h-[62px]',
 									'rounded-[10px]',
-									'bg-contrast shadow-btn',
+									'bg-contrast/90 shadow-btn hover:bg-contrast active:bg-contrast/70',
 									'text-[14px] md:text-[18px] font-inter font-semibold',
 									'cursor-pointer',
 									'mt-[clamp(20px,1.2vw,14px)] min-[960px]:mt-[50px]',

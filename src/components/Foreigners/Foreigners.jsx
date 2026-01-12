@@ -1,6 +1,9 @@
 const Foreigners = () => {
 	return (
-		<section className='py-5 lg:py-[30px] xl:py-[40px]'>
+		<section
+			id='foreigners'
+			className='py-5 lg:py-[30px] xl:py-[40px] scroll-mt-20'
+		>
 			<div className='w-full flex flex-col gap-5 lg:gap-7.5 px-2.5 min-[1199px]:px-[20px]'>
 				<h2
 					className='

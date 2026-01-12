@@ -1,15 +1,21 @@
 import { usePopupFlow } from '../../hooks/usePopupFlow'
 
+import { useCallback } from 'react'
 import Telega from '../../assets/images/telegrami.png'
 import Logo from '../../assets/svg/Logo.svg?react'
 
-// ✅ пути под себя
 import Modal from '../Modal/Modal'
 import Popup from '../Popup/Popup'
 import Popupok from '../Popupok/Popupok'
 
 const Footer = () => {
 	const callPopup = usePopupFlow()
+
+	const handleNavClick = useCallback(href => {
+		const el = document.querySelector(href)
+		if (!el) return
+		el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+	}, [])
 
 	return (
 		<footer className='relative w-full'>
@@ -40,17 +46,16 @@ const Footer = () => {
 
 							<a
 								href='/'
-								className='flex items-center justify-center shrink-0 w-7.5 h-7.5 rounded-[10px]'
+								className='flex items-center justify-center shrink-0 w-7.5 h-7.5 rounded-[10px] cursor-pointer hover:opacity-90 active:opacity-70'
 							>
 								<img src={Telega} alt='Телеграм' />
 							</a>
 						</div>
 
-						{/* ✅ НЕ ломаю стили, просто добавил onClick */}
 						<button
 							type='button'
 							onClick={callPopup.open}
-							className='w-full max-w-[250px] h-15.5 rounded-[15px] text-white bg-[#D14E15] font-inter font-bold text-[18px] cursor-pointer shadow-btn'
+							className='w-full max-w-[250px] h-[49px] rounded-[10px] text-white bg-contrast/90 hover:bg-contrast active:bg-contrast/70 font-inter font-bold text-[18px] cursor-pointer shadow-btn'
 						>
 							Обратный звонок
 						</button>
@@ -63,13 +68,27 @@ const Footer = () => {
 									Специализации
 								</h4>
 								<ul className='flex flex-col gap-1.5 font-golos font-medium text-[12px] min-[569px]:text-[14px]'>
-									<li>Оператор БПЛА</li>
-									<li>РЭБ</li>
-									<li>Водитель</li>
-									<li>Артиллерия</li>
-									<li>Штурмовик</li>
-									<li>Врач</li>
-									<li>Повар</li>
+									<li className='cursor-pointer hover:text-contrast active:text-contrast/70'>
+										Оператор БПЛА
+									</li>
+									<li className='cursor-pointer hover:text-contrast active:text-contrast/70'>
+										РЭБ
+									</li>
+									<li className='cursor-pointer hover:text-contrast active:text-contrast/70'>
+										Водитель
+									</li>
+									<li className='cursor-pointer hover:text-contrast active:text-contrast/70'>
+										Артиллерия
+									</li>
+									<li className='cursor-pointer hover:text-contrast active:text-contrast/70'>
+										Штурмовик
+									</li>
+									<li className='cursor-pointer hover:text-contrast active:text-contrast/70'>
+										Врач
+									</li>
+									<li className='cursor-pointer hover:text-contrast active:text-contrast/70'>
+										Повар
+									</li>
 								</ul>
 							</div>
 
@@ -78,11 +97,21 @@ const Footer = () => {
 									Войска
 								</h4>
 								<ul className='flex flex-col gap-1.5 font-golos font-medium text-[12px] min-[569px]:text-[14px]'>
-									<li>Африканский корпус</li>
-									<li>ВДВ</li>
-									<li>Морская пехота</li>
-									<li>Мотострелковый полк</li>
-									<li>Ракетные войска</li>
+									<li className='cursor-pointer hover:text-contrast active:text-contrast/70'>
+										Африканский корпус
+									</li>
+									<li className='cursor-pointer hover:text-contrast active:text-contrast/70'>
+										ВДВ
+									</li>
+									<li className='cursor-pointer hover:text-contrast active:text-contrast/70'>
+										Морская пехота
+									</li>
+									<li className='cursor-pointer hover:text-contrast active:text-contrast/70'>
+										Мотострелковый полк
+									</li>
+									<li className='cursor-pointer hover:text-contrast active:text-contrast/70'>
+										Ракетные войска
+									</li>
 								</ul>
 							</div>
 
@@ -93,13 +122,27 @@ const Footer = () => {
 									Города
 								</h4>
 								<ul className='flex flex-col gap-1.5 font-golos font-medium text-[12px] min-[569px]:text-[14px]'>
-									<li>Москва</li>
-									<li>Санкт-Петербург</li>
-									<li>Казань</li>
-									<li>Самара</li>
-									<li>Нижний Новгород</li>
-									<li>Ульяновск</li>
-									<li>Уфа</li>
+									<li className='cursor-pointer hover:text-contrast active:text-contrast/70'>
+										Москва
+									</li>
+									<li className='cursor-pointer hover:text-contrast active:text-contrast/70'>
+										Санкт-Петербург
+									</li>
+									<li className='cursor-pointer hover:text-contrast active:text-contrast/70'>
+										Казань
+									</li>
+									<li className='cursor-pointer hover:text-contrast active:text-contrast/70'>
+										Самара
+									</li>
+									<li className='cursor-pointer hover:text-contrast active:text-contrast/70'>
+										Нижний Новгород
+									</li>
+									<li className='cursor-pointer hover:text-contrast active:text-contrast/70'>
+										Ульяновск
+									</li>
+									<li className='cursor-pointer hover:text-contrast active:text-contrast/70'>
+										Уфа
+									</li>
 								</ul>
 							</div>
 
@@ -107,14 +150,73 @@ const Footer = () => {
 								<h4 className='font-inter font-semibold text-[14px] min-[569px]:text-[18px] mb-2'>
 									Меню
 								</h4>
-								<ul className='flex flex-col gap-1.5 font-golos font-medium text-[12px] min-[569px]:text-[14px]'>
-									<li>Главная</li>
-									<li>Выплаты</li>
-									<li>Льготы</li>
-									<li>Требования</li>
-									<li>Документы</li>
-									<li>Мигрантам</li>
-									<li>Сотрудничество</li>
+								<ul className='flex flex-col gap-1.5 font-golos font-medium text-[12px] min-[569px]:text-[14px] '>
+									<li>
+										<a
+											href='/'
+											className='cursor-pointer hover:text-contrast active:text-contrast/70'
+										>
+											Главная
+										</a>
+									</li>
+									<li>
+										<a
+											className='cursor-pointer hover:text-contrast active:text-contrast/70'
+											onClick={e => {
+												e.preventDefault()
+												handleNavClick('#payments')
+											}}
+										>
+											Выплаты
+										</a>
+									</li>
+									<li>
+										<a
+											className='cursor-pointer hover:text-contrast active:text-contrast/70'
+											onClick={e => {
+												e.preventDefault()
+												handleNavClick('#benefits')
+											}}
+										>
+											Льготы
+										</a>
+									</li>
+									<li>
+										<a
+											className='cursor-pointer hover:text-contrast active:text-contrast/70'
+											onClick={e => {
+												e.preventDefault()
+												handleNavClick('#requirements')
+											}}
+										>
+											Требования
+										</a>
+									</li>
+									<li>
+										<a
+											className='cursor-pointer hover:text-contrast active:text-contrast/70'
+											onClick={e => {
+												e.preventDefault()
+												handleNavClick('#documents')
+											}}
+										>
+											Документы
+										</a>
+									</li>
+									<li>
+										<a
+											className='cursor-pointer hover:text-contrast active:text-contrast/70'
+											onClick={e => {
+												e.preventDefault()
+												handleNavClick('#foreigners')
+											}}
+										>
+											Мигрантам
+										</a>
+									</li>
+									<li className='cursor-pointer hover:text-contrast active:text-contrast/70'>
+										Сотрудничество
+									</li>
 								</ul>
 							</div>
 						</div>

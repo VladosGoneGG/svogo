@@ -87,7 +87,7 @@ const Popup = ({ onSuccess }) => {
 							type='submit'
 							className='
                 mt-2 w-full h-[49px] rounded-[15px] cursor-pointer
-                bg-contrast shadow-item text-white
+                bg-contrast/90 hover:bg-contrast active:bg-contrast/70 shadow-item text-white
                 font-inter font-bold
                 text-[18px]
                 uppercase
