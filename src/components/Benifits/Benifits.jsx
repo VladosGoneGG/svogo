@@ -105,11 +105,11 @@ const Benifits = () => {
 	return (
 		<section
 			id='benefits'
-			className='flex flex-col items-center mb-5 lg:mb-[30px] xl:mb-[40px] pt-5 scroll-mt-20'
+			className='flex flex-col items-center mb-5 lg:mb-[30px] xl:mb-[40px] pt-5 lg:pt-7.5 xl:pt-10 scroll-mt-20'
 		>
-			<div className='flex flex-col gap-5 w-full px-2.5  min-[1199px]:px-[20px]'>
+			<div className='flex flex-col gap-5 w-full px-2.5 xl:gap-7.5  xl:px-[20px]'>
 				<div className='w-full max-w-[405px] max-[766px]:max-w-none  md:max-w-none'>
-					<h2 className='w-full text-contrast max-w-[365px] max-[766px]:max-w-none font-golos font-semibold text-[20px] md:text-[24px] px-5 lg:py-2.5 lg:text-[30px] xl:text-[40px]  md:max-w-none'>
+					<h2 className='w-full text-contrast max-w-[365px] max-[766px]:max-w-none font-golos font-semibold text-[20px] md:text-[24px] px-5  lg:text-[30px] xl:text-[40px]  md:max-w-none'>
 						Льготы и гарантии участникам СВО от государства
 					</h2>
 				</div>
@@ -170,7 +170,7 @@ const Benifits = () => {
 						exit={{ opacity: 0, y: 10 }}
 						transition={{ duration: 0.25, ease: 'easeOut' }}
 						className={[
-							'w-full flex flex-col gap-5 md:grid md:grid-cols-2 md:gap-5 lg:grid-cols-3',
+							'w-full flex flex-col gap-7.5 md:grid md:grid-cols-2 md:gap-y-7.5 md:gap-x-7.5 lg:grid-cols-3',
 							listMinH,
 						].join(' ')}
 					>

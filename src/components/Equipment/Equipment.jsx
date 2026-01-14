@@ -6,13 +6,7 @@ const Equipment = () => {
 			<div className='absolute inset-0 -left-[50vw] left-1/2 -translate-x-1/2 w-screen -z-10' />
 
 			<div className='w-full  px-2.5 lg:px-[20px]'>
-				<div
-					className='
-            flex flex-col md:flex-row
-            gap-5 md:gap-0
-            items-start md:items-stretch
-          '
-				>
+				<div className='flex flex-col md:flex-row gap-5 md:gap-0  items-start md:items-stretch px-5 lg:px-12.5'>
 					{/* ЛЕВАЯ КОЛОНКА — ВЕСЬ ТЕКСТ */}
 					<div className='flex-1 min-w-0 max-w-[510px] font-golos'>
 						<div className='max-w-[355px] sm:max-w-[550px] md:max-w-[900px] lg:max-w-[550px]'>

@@ -127,12 +127,12 @@ const Consultation = () => {
 						</div>
 
 						{/* правая колонка */}
-						<div className='w-full max-w-[410px] md:flex md:justify-end'>
+						<div className='w-full max-w-[410px]  md:flex md:justify-end'>
 							<form
 								onSubmit={handleSubmit(onSubmit)}
 								className='w-full md:max-w-[460px] md:pt-[45px]'
 							>
-								<div className='flex flex-col'>
+								<div className='flex flex-col px-5'>
 									<label htmlFor='consultation-name' className='sr-only'>
 										Ваше имя
 									</label>
@@ -178,7 +178,7 @@ const Consultation = () => {
 
 									{/* ✅ ЧЕКБОКС */}
 									<motion.div
-										className='h-5 mt-5 pl-[8px] inline-flex items-center gap-2.5 select-none'
+										className='h-5 mt-5 pl-[5px] inline-flex items-center gap-2.5 select-none'
 										whileHover={{ y: -1 }}
 										whileTap={{ scale: 0.99, y: 0 }}
 										transition={{
@@ -242,7 +242,7 @@ const Consultation = () => {
 										получить консультацию
 									</button>
 
-									<p className='mt-5 font-inter font-semibold text-[14px] text-[#797c85]'>
+									<p className='mt-5 px-2.5 font-inter font-semibold text-[14px] text-[#797c85] text-left'>
 										Консультация бесплатная. Звонок не обязывает вас подписывать
 										контракт
 									</p>
