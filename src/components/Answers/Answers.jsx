@@ -29,6 +29,7 @@ const Answers = () => {
 		formState: { errors, isSubmitting },
 	} = useForm({
 		mode: 'onChange',
+		reValidateMode: 'onChange',
 		defaultValues: {
 			military: '',
 			birthDate: '',

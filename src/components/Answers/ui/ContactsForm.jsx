@@ -1,13 +1,9 @@
+import { useRuPhoneInput } from '../../../hooks/useRuPhoneInput'
 import AgreeRow from './AgreeRow'
+const ContactsForm = ({ register, errors, agree, onToggleAgree, onSubmit }) => {
+	const { registerOptions: phoneRules, inputProps: phoneInputProps } =
+		useRuPhoneInput()
 
-const ContactsForm = ({
-	register,
-	errors,
-	agree,
-	onToggleAgree,
-	onSubmit,
-	phoneValidate, // <- валидатор снаружи
-}) => {
 	return (
 		<form
 			id='contactsForm'
@@ -21,20 +17,18 @@ const ContactsForm = ({
 				})}
 				placeholder='ФИО'
 				className={[
-					'w-full h-[54px] rounded-[14px] px-4 bg-white font-inter font-semibold text-[14px] outline-none focus:outline-none focus:ring-0 focus:border-transparent cursor-pointer',
-					errors.fio ? '!bg-[#ffe5e5]' : '',
+					'w-full h-[54px] rounded-[14px] px-4 bg-white font-inter font-semibold text-[14px] text-black outline-none placeholder:text-[14px]  focus:outline-none focus:ring-0 focus:border-transparent cursor-pointer placeholder:opacity-100 transition-[color,opacity] duration-150  hover:placeholder:opacity-0 focus:placeholder:opacity-0',
+					errors.fio ? '!bg-[#FFB4B4]' : '',
 				].join(' ')}
 			/>
 
 			<input
-				{...register('phone', {
-					required: true,
-					validate: phoneValidate,
-				})}
+				{...phoneInputProps}
+				{...register('phone', phoneRules)}
 				placeholder='+7 (000) 000-00-00'
 				className={[
-					'w-full h-[54px] rounded-[14px] px-4 bg-white font-inter font-semibold text-[14px] outline-none focus:outline-none focus:ring-0 focus:border-transparent cursor-pointer',
-					errors.phone ? '!bg-[#ffe5e5]' : '',
+					'w-full h-[54px] rounded-[14px] px-4 bg-white font-inter font-semibold text-[14px] text-black outline-none placeholder:text-[14px]  focus:outline-none focus:ring-0 focus:border-transparent cursor-pointer  placeholder:opacity-100 transition-[color,opacity] duration-150  hover:placeholder:opacity-0 focus:placeholder:opacity-0',
+					errors.phone ? '!bg-[#FFB4B4]' : '',
 				].join(' ')}
 			/>
 

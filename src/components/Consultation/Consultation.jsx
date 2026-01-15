@@ -2,6 +2,7 @@ import { motion } from 'motion/react'
 import { useController, useForm } from 'react-hook-form'
 import Gerbmd from '../../assets/images/gerbmd.webp'
 import { usePopupFlow } from '../../hooks/usePopupFlow'
+import { useRuPhoneInput } from '../../hooks/useRuPhoneInput'
 import Fullbleed from '../Fullbleed/Fullbleed'
 import Modal from '../Modal/Modal'
 import Popupok from '../Popupok/Popupok'
@@ -32,6 +33,8 @@ const QUESTIONS = [
 
 const Consultation = () => {
 	const popup = usePopupFlow()
+	const { registerOptions: phoneRules, inputProps: phoneInputProps } =
+		useRuPhoneInput()
 
 	const {
 		register,
@@ -46,6 +49,7 @@ const Consultation = () => {
 			agree: false,
 		},
 		mode: 'onSubmit',
+		reValidateMode: 'onChange',
 	})
 
 	const { field: agreeField } = useController({
@@ -53,6 +57,25 @@ const Consultation = () => {
 		control,
 		rules: { required: true },
 	})
+
+	const formatPhoneRU = value => {
+		const digits = value.replace(/\D/g, '')
+
+		// если начали с 8 → считаем как 7
+		const normalized = digits[0] === '8' ? '7' + digits.slice(1) : digits
+
+		if (normalized.length === 0) return ''
+		if (normalized.length <= 1) return `+${normalized}`
+
+		let result = '+7'
+
+		if (normalized.length > 1) result += ` (${normalized.slice(1, 4)}`
+		if (normalized.length >= 5) result += `) ${normalized.slice(4, 7)}`
+		if (normalized.length >= 8) result += `-${normalized.slice(7, 9)}`
+		if (normalized.length >= 10) result += `-${normalized.slice(9, 11)}`
+
+		return result
+	}
 
 	const onSubmit = async data => {
 		try {
@@ -139,43 +162,28 @@ const Consultation = () => {
 									<input
 										type='text'
 										placeholder='Ваше имя'
-										className='
-                      w-full rounded-[16px] bg-[#E6E8ED] 
-                      px-[15px] py-[15px] font-golos
-                      text-[#1d1e21]
-                      placeholder:text-[#9aa0ab] placeholder:text-[16px] placeholder:font-semibold
-                      outline-none
-                      ring-1 ring-transparent focus:ring-2 focus:ring-[#E05A1A]/60
-                    '
-										{...register('name', { required: 'Введите имя' })}
+										className={`w-full rounded-[16px]  px-[15px] py-[15px] font-golos  text-black text-[14px] font-semibold cursor-pointer placeholder:text-[#9aa0ab] placeholder:text-[14px] placeholder:font-semibold  placeholder:opacity-100
+                    transition-[color,opacity] duration-150  hover:placeholder:opacity-0
+                    focus:placeholder:opacity-0 outline-none focus:outline-none  ring-0 focus:ring-0 transition-colors duration-200 ${
+											errors.name ? 'bg-[#FFB4B4]' : 'bg-[#E6E8ED]'
+										} `}
+										{...register('name', { required: true })}
 									/>
-									{errors.name ? (
-										<p className='text-[12px] font-golos text-[#1d1e21]/70 mt-2'>
-											{errors.name.message}
-										</p>
-									) : null}
+
 									<label htmlFor='consultation-phone' className='sr-only'>
 										Телефон
 									</label>
 									<input
-										type='tel'
 										placeholder='+7 (000) 000-00-00'
-										className='
-                      w-full rounded-[16px] mt-2.5 bg-[#E6E8ED] 
-                      px-[15px] py-[15px] font-golos
-                      text-[#1d1e21]
-                      placeholder:text-[#9aa0ab] placeholder:text-[16px] placeholder:font-semibold
-                      outline-none
-                      ring-1 ring-transparent focus:ring-2 focus:ring-[#E05A1A]/60
-                    '
-										{...register('phone', { required: 'Введите телефон' })}
+										className={`w-full rounded-[16px] mt-2.5 px-[15px] py-[15px] font-golos text-black text-[14px] font-semibold cursor-pointer  placeholder:text-[#9aa0ab] placeholder:text-[14px] placeholder:font-semibold outline-none  placeholder:opacity-100
+                    transition-[color,opacity] duration-150  hover:placeholder:opacity-0
+                    focus:placeholder:opacity-0 focus:outline-none ring-0 focus:ring-0  transition-colors duration-200 ${
+											errors.phone ? 'bg-[#FFB4B4]' : 'bg-[#E6E8ED]'
+										}
+                      `}
+										{...phoneInputProps}
+										{...register('phone', phoneRules)}
 									/>
-									{errors.phone ? (
-										<p className='text-[12px] font-golos text-[#1d1e21]/70 mt-2'>
-											{errors.phone.message}
-										</p>
-									) : null}
-
 									{/* ✅ ЧЕКБОКС */}
 									<motion.div
 										className='h-5 mt-5 pl-[5px] inline-flex items-center gap-2.5 select-none'

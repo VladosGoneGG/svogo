@@ -1,7 +1,11 @@
 import { motion } from 'motion/react'
 import { useController, useForm } from 'react-hook-form'
+import { useRuPhoneInput } from '../../hooks/useRuPhoneInput'
 
 const Popup = ({ onSuccess }) => {
+	const { registerOptions: phoneRules, inputProps: phoneInputProps } =
+		useRuPhoneInput()
+
 	const {
 		register,
 		handleSubmit,
@@ -14,6 +18,7 @@ const Popup = ({ onSuccess }) => {
 			agree: false,
 		},
 		mode: 'onSubmit',
+		reValidateMode: 'onChange',
 	})
 
 	const { field: agreeField } = useController({
@@ -51,42 +56,33 @@ const Popup = ({ onSuccess }) => {
 						<input
 							type='text'
 							placeholder='Ваше имя'
-							className='
-                w-full rounded-[16px] bg-[#E6E8ED] 
-                px-[15px] py-[15px] font-golos
-                text-[#1d1e21]
-                placeholder:text-[#9aa0ab] placeholder:text-[16px] placeholder:font-semibold
-                outline-none
-                ring-1 ring-transparent focus:ring-2 focus:ring-[#E05A1A]/60
-              '
-							{...register('name', { required: 'Введите имя' })}
+							className={` w-full rounded-[15px] px-[15px] py-[15px] font-inter text-black cursor-pointer placeholder:text-[#9aa0ab] placeholder:text-[14px] placeholder:font-semibold placeholder:opacity-100 hover:placeholder:opacity-0 focus:placeholder:opacity-0
+              outline-none focus:outline-none ring-0 focus:ring-0 transition-colors duration-200  ${
+								errors.name ? 'bg-[#FFB4B4]' : 'bg-[#E6E8ED]'
+							}
+               `}
+							{...register('name', { required: true })}
 						/>
-						{errors.name ? (
-							<p className='text-[12px] font-golos text-[#1d1e21]/70 '>
-								{errors.name.message}
-							</p>
-						) : null}
+
 						<label htmlFor='popup-phone' className='sr-only'>
 							Телефон
 						</label>
 						<input
-							type='tel'
+							{...phoneInputProps}
 							placeholder='+7 (000) 000-00-00'
-							className='
-                w-full rounded-[16px]  bg-[#E6E8ED] 
-                px-[15px] py-[15px] font-golos
-                text-[#1d1e21]
-                placeholder:text-[#9aa0ab] placeholder:text-[16px] placeholder:font-semibold
-                outline-none
-                ring-1 ring-transparent focus:ring-2 focus:ring-[#E05A1A]/60
-              '
-							{...register('phone', { required: 'Введите телефон' })}
+							className={`
+    w-full rounded-[15px]
+    px-[15px] py-[15px] font-inter
+    text-black cursor-pointer
+    placeholder:text-[#9aa0ab] placeholder:text-[14px] placeholder:font-semibold
+    placeholder:opacity-100 hover:placeholder:opacity-0 focus:placeholder:opacity-0
+    outline-none focus:outline-none
+    ring-0 focus:ring-0
+    transition-colors duration-200
+    ${errors.phone ? 'bg-[#FFB4B4]' : 'bg-[#E6E8ED]'}
+  `}
+							{...register('phone', phoneRules)}
 						/>
-						{errors.phone ? (
-							<p className='text-[12px] font-golos text-[#1d1e21]/70 mt-2'>
-								{errors.phone.message}
-							</p>
-						) : null}
 
 						<motion.button
 							type='submit'
