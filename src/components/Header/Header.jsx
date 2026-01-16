@@ -58,10 +58,10 @@ const Header = () => {
         sticky top-0 z-40
         min-[960px]:static
         bg-[#eee]
-        max-w-106.25 h-19 min-[426px]:max-w-239.75 min-[960px]:max-w-300
+        max-w-106.25 h-[76px] min-[426px]:max-w-239.75 min-[960px]:max-w-300
       '
 		>
-			<div className=' flex items-center justify-between p-2.5 min-[960px]:p-5'>
+			<div className=' flex items-center justify-between px-2.5 py-[5px] min-[960px]:px-5 min-[960px]:py-[10px]'>
 				<Link to='/' aria-label='На главную'>
 					<Logo />
 				</Link>

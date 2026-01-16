@@ -56,7 +56,7 @@ const Popup = ({ onSuccess }) => {
 						<input
 							type='text'
 							placeholder='Ваше имя'
-							className={` w-full rounded-[15px] px-[15px] py-[15px] font-inter text-black cursor-pointer placeholder:text-[#9aa0ab] placeholder:text-[14px] placeholder:font-semibold placeholder:opacity-100 hover:placeholder:opacity-0 focus:placeholder:opacity-0
+							className={` w-full rounded-[15px] px-[15px] py-[15px] font-inter text-black cursor-pointer placeholder:text-[#9aa0ab] placeholder:text-[14px] placeholder:font-semibold placeholder:opacity-100 hover:placeholder:opacity-50 focus:placeholder:opacity-0
               outline-none focus:outline-none ring-0 focus:ring-0 transition-colors duration-200  ${
 								errors.name ? 'bg-[#FFB4B4]' : 'bg-[#E6E8ED]'
 							}
@@ -75,7 +75,7 @@ const Popup = ({ onSuccess }) => {
     px-[15px] py-[15px] font-inter
     text-black cursor-pointer
     placeholder:text-[#9aa0ab] placeholder:text-[14px] placeholder:font-semibold
-    placeholder:opacity-100 hover:placeholder:opacity-0 focus:placeholder:opacity-0
+    placeholder:opacity-100 hover:placeholder:opacity-50 focus:placeholder:opacity-0
     outline-none focus:outline-none
     ring-0 focus:ring-0
     transition-colors duration-200

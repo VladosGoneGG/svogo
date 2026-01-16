@@ -163,8 +163,8 @@ const Consultation = () => {
 										type='text'
 										placeholder='Ваше имя'
 										className={`w-full rounded-[16px]  px-[15px] py-[15px] font-golos  text-black text-[14px] font-semibold cursor-pointer placeholder:text-[#9aa0ab] placeholder:text-[14px] placeholder:font-semibold  placeholder:opacity-100
-                    transition-[color,opacity] duration-150  hover:placeholder:opacity-0
-                    focus:placeholder:opacity-0 outline-none focus:outline-none  ring-0 focus:ring-0 transition-colors duration-200 ${
+                    transition-[color,opacity] duration-150  hover:placeholder:opacity-50
+                    focus:placeholder:opacity-50 outline-none focus:outline-none  ring-0 focus:ring-0 transition-colors duration-200 ${
 											errors.name ? 'bg-[#FFB4B4]' : 'bg-[#E6E8ED]'
 										} `}
 										{...register('name', { required: true })}
@@ -176,8 +176,8 @@ const Consultation = () => {
 									<input
 										placeholder='+7 (000) 000-00-00'
 										className={`w-full rounded-[16px] mt-2.5 px-[15px] py-[15px] font-golos text-black text-[14px] font-semibold cursor-pointer  placeholder:text-[#9aa0ab] placeholder:text-[14px] placeholder:font-semibold outline-none  placeholder:opacity-100
-                    transition-[color,opacity] duration-150  hover:placeholder:opacity-0
-                    focus:placeholder:opacity-0 focus:outline-none ring-0 focus:ring-0  transition-colors duration-200 ${
+                    transition-[color,opacity] duration-150  hover:placeholder:opacity-50
+                    focus:placeholder:opacity-50 focus:outline-none ring-0 focus:ring-0  transition-colors duration-200 ${
 											errors.phone ? 'bg-[#FFB4B4]' : 'bg-[#E6E8ED]'
 										}
                       `}
@@ -245,7 +245,7 @@ const Consultation = () => {
 										получить консультацию
 									</motion.button>
 
-									<p className='mt-5 px-2.5 font-inter font-semibold text-[14px] text-[#797c85] text-left'>
+									<p className='mt-5 pl-2.5 font-inter font-semibold text-[14px] text-[#797c85] text-left'>
 										Консультация бесплатная. Звонок не обязывает вас подписывать
 										контракт
 									</p>

@@ -31,13 +31,15 @@ const LeftColumn = ({
 		currentStep?.id || 0
 	}`
 
+	// отдельный ключ только для "ветки", чтобы не было пустого состояния, но framer понимал смену высоты
+	const bodyKey = isContacts ? 'contacts' : `step-${currentStep?.id || 0}`
+
 	return (
 		<div className='order-2 md:order-1 relative flex flex-col w-full  md:min-w-[414px]'>
 			<div className='absolute -inset-[0px] pointer-events-none'>
 				<DashedBorder strokeWidth={2} dashArray='10 10' radius={20} />
 			</div>
 
-			{/* Header можно анимировать сменой */}
 			<AnimatePresence mode='wait'>
 				<motion.div
 					key={headerKey}
@@ -51,24 +53,24 @@ const LeftColumn = ({
 				</motion.div>
 			</AnimatePresence>
 
-			{/* ✅ Один постоянный контейнер: именно он держит плавную высоту */}
+			{/* ✅ Этот контейнер всегда один: он анимирует ТОЛЬКО размер (высоту/ширину) */}
 			<motion.div
-				layout
+				layout='size'
 				transition={{ duration: DURATION, ease: EASE }}
-				className='relative'
+				className='relative overflow-hidden'
 			>
-				{/* ✅ Контент меняем без mode="wait", чтобы не было "пустого" состояния */}
+				{/* ✅ Внутри меняем ветки/шаги. popLayout помогает без "пустоты" */}
 				<AnimatePresence mode='popLayout' initial={false}>
-					{isContacts ? (
-						<motion.div
-							key='contacts'
-							layout
-							variants={fadeSwap}
-							initial='initial'
-							animate='animate'
-							exit='exit'
-							transition={{ duration: DURATION, ease: EASE }}
-						>
+					<motion.div
+						key={bodyKey}
+						layout='position'
+						variants={fadeSwap}
+						initial='initial'
+						animate='animate'
+						exit='exit'
+						transition={{ duration: DURATION, ease: EASE }}
+					>
+						{isContacts ? (
 							<ContactsForm
 								register={register}
 								errors={errors}
@@ -77,18 +79,7 @@ const LeftColumn = ({
 								onSubmit={onContactsSubmit}
 								phoneValidate={phoneValidate}
 							/>
-						</motion.div>
-					) : (
-						<motion.div
-							/* ✅ ВАЖНО: НЕ key-им по step! */
-							key='quiz'
-							layout
-							variants={fadeSwap}
-							initial='initial'
-							animate='animate'
-							exit='exit'
-							transition={{ duration: DURATION, ease: EASE }}
-						>
+						) : (
 							<QuizContent
 								currentStep={currentStep}
 								pickedValue={pickedValue}
@@ -104,8 +95,8 @@ const LeftColumn = ({
 										: 'none'
 								}
 							/>
-						</motion.div>
-					)}
+						)}
+					</motion.div>
 				</AnimatePresence>
 			</motion.div>
 		</div>

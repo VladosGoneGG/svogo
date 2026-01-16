@@ -35,7 +35,7 @@ const Hero = ({ title, subtitle, text }) => {
 		: DEFAULT_CONTENT.text
 
 	return (
-		<section className='mt-4 px-2.5 lg:px-5'>
+		<section className='px-2.5 lg:px-5'>
 			<div
 				className={[
 					stylesCss.heroBg,

@@ -2,11 +2,9 @@ import { useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { usePopupFlow } from '../../hooks/usePopupFlow'
 import { STEPS } from './steps'
+import { Header, LeftColumn, RightColumn } from './ui'
 import { makeOptionsLabelMap } from './utils'
 import { isValidBirthDate, isValidRuPhone } from './validators'
-
-import { Header, LeftColumn, RightColumn } from './ui'
-
 // добавь импорты (пути под себя)
 import Modal from '../Modal/Modal'
 import Popupok from '../Popupok/Popupok'
@@ -71,7 +69,8 @@ const Answers = () => {
 	const phone = watch('phone')
 	const agree = watch('agree')
 	const pickedValue = watch(currentStep?.field || '')
-
+	const EASE = [0.42, 0, 0.58, 1]
+	const DURATION = 0.3
 	const canNextQuiz = useMemo(() => {
 		if (!currentStep) return false
 

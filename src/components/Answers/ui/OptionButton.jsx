@@ -10,7 +10,13 @@ const OptionButton = ({ opt, checked, onPick, animateLabel = false }) => {
 			onClick={() => onPick(opt.id)}
 			className='group w-full bg-[#d1d3d8] rounded-[14px] p-4 flex gap-2.5 cursor-pointer will-change-transform'
 			layout
-			whileHover={{ backgroundColor: '#ffffff', y: -1 }}
+			animate={{
+				backgroundColor: checked ? '#ffffff' : '#d1d3d8',
+			}}
+			whileHover={{
+				backgroundColor: '#ffffff',
+				y: -1,
+			}}
 			whileTap={{ scale: 0.98 }}
 			transition={{ duration: DURATION, ease: EASE }}
 		>

@@ -105,7 +105,6 @@ function AccordionItem({ q, a, isOpen, onToggle, btnId, panelId }) {
 					isOpen ? 'opacity-100' : 'opacity-0',
 				].join(' ')}
 			/>
-
 			<div
 				className={[
 					'pointer-events-none absolute left-0 top-0 bottom-0 w-px bg-[#c3c6d0]',
@@ -114,7 +113,7 @@ function AccordionItem({ q, a, isOpen, onToggle, btnId, panelId }) {
 				].join(' ')}
 			/>
 
-			<div className='flex flex-col  pl-[20px]'>
+			<div className='flex flex-col pl-[20px]'>
 				<button
 					type='button'
 					onClick={onToggle}
@@ -123,10 +122,18 @@ function AccordionItem({ q, a, isOpen, onToggle, btnId, panelId }) {
 					id={btnId}
 					className='w-full text-left cursor-pointer'
 				>
-					<div className='flex items-start justify-between gap-5 pt-3 min-h-[74px]'>
+					{/* ШАПКА: иконка НЕ влияет на высоту */}
+					<div
+						className={[
+							'relative pt-[15px]',
+							!isOpen ? 'min-h-[74px]' : 'min-h-0',
+						].join(' ')}
+					>
+						{/* ТЕКСТ (оставляем место справа под иконку) */}
 						<span
 							className={[
-								'font-golos font-semibold text-[18px] ',
+								'block pr-[64px]', // место под круг 39px + немного воздуха
+								'font-golos font-semibold text-[18px]',
 								'transition-colors duration-300 ease-in-out',
 								isOpen ? 'text-contrast' : 'text-[#1D1E21]',
 							].join(' ')}
@@ -134,8 +141,10 @@ function AccordionItem({ q, a, isOpen, onToggle, btnId, panelId }) {
 							{q}
 						</span>
 
+						{/* ИКОНКА АБСОЛЮТНО — не участвует в расчёте высоты */}
 						<span
 							className={[
+								'absolute right-0 top-[15px]',
 								'shrink-0 grid place-items-center rounded-full',
 								'w-[39px] h-[39px]',
 								'text-[#1D1E21]',
@@ -162,17 +171,16 @@ function AccordionItem({ q, a, isOpen, onToggle, btnId, panelId }) {
 					].join(' ')}
 				>
 					<div className='overflow-hidden'>
-						{/* сохраняем твой gap-5 и pb-5, но делаем плавный “заезд” текста */}
 						<div
 							className={[
-								'flex flex-col gap-5 pb-5',
+								'flex flex-col pt-[20px] pb-[15px]',
 								'transition-[transform,opacity] duration-300 ease-in-out will-change-transform',
 								isOpen
 									? 'opacity-100 translate-y-0'
 									: 'opacity-0 -translate-y-1',
 							].join(' ')}
 						>
-							<p className='font-golos font-medium text-[14px]  text-black max-w-[365px]'>
+							<p className='font-golos font-medium text-[14px] text-black max-w-[486px]'>
 								{a}
 							</p>
 						</div>
@@ -182,6 +190,7 @@ function AccordionItem({ q, a, isOpen, onToggle, btnId, panelId }) {
 		</div>
 	)
 }
+
 const Questions = () => {
 	const uid = useId()
 	const [openIndexes, setOpenIndexes] = useState(() => new Set())

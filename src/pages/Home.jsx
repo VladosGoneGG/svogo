@@ -104,7 +104,7 @@ const Home = () => {
 			<div className='min-h-screen flex flex-col w-full max-w-300 min-[1200px]:mx-auto '>
 				<Header />
 
-				<main className='flex-1 mt-2.5'>
+				<main className='flex-1 lg:mt-2.5'>
 					<Hero />
 					<Compensations />
 					<Benifits />
