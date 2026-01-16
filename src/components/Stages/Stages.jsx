@@ -153,8 +153,7 @@ const Stages = () => {
 								<div className='flex p-2.5 md:p-5 md:pl-7.5 gap-2.5 bg-black rounded-[20px] shadow-item'>
 									<div className='flex w-full flex-col gap-2.5'>
 										<p className='text-[20px] text-white font-semibold'>
-											Мы сопровождаем кандидата от первого обращения до начала{' '}
-											<br className='hidden xl:block' />
+											Мы сопровождаем кандидата от первого обращения до начала
 											службы
 										</p>
 										<p className='text-[14px] font-medium text-white'>
