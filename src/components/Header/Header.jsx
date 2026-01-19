@@ -15,24 +15,23 @@ const Header = () => {
 	const location = useLocation()
 	const navigate = useNavigate()
 
-	const toHashHref = hash => `/${hash}`
+	const toHashHref = hash => hash
 
 	const handleNavClick = useCallback(
 		hash => {
-			// если мы не на главной — сначала переходим на неё с hash
-			if (location.pathname !== '/') {
-				navigate(`/${hash}`)
+			const el = document.querySelector(hash)
+
+			if (el) {
+				el.scrollIntoView({ behavior: 'smooth', block: 'start' })
 				setIsBurgerOpen(false)
-				return
+				return true
 			}
 
-			// если уже на главной — просто скроллим
-			const el = document.querySelector(hash)
-			if (!el) return
-			el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+			navigate(`/${hash}`)
 			setIsBurgerOpen(false)
+			return false
 		},
-		[location.pathname, navigate]
+		[navigate],
 	)
 	const callPopup = usePopupFlow()
 
@@ -61,7 +60,7 @@ const Header = () => {
         max-w-106.25 h-[76px] min-[426px]:max-w-239.75 min-[960px]:max-w-300
       '
 		>
-			<div className=' flex items-center justify-between px-2.5 py-[5px] min-[960px]:px-5 min-[960px]:py-[10px]'>
+			<div className=' flex items-center justify-between px-2.5 py-[5px] lg:px-5 lg:py-[10px]'>
 				<Link to='/' aria-label='На главную'>
 					<Logo />
 				</Link>
@@ -72,14 +71,8 @@ const Header = () => {
 							href={toHashHref('#payments')}
 							className='cursor-pointer hover:text-contrast active:text-contrast/70 transition-colors duration-150 ease-in-out'
 							onClick={e => {
-								// smooth-scroll только если мы УЖЕ на главной
-								if (location.pathname === '/') {
-									e.preventDefault()
-									handleNavClick('#payments')
-								} else {
-									// не preventDefault: пусть сработает обычная навигация по href="/#payments"
-									setIsBurgerOpen(false)
-								}
+								e.preventDefault()
+								handleNavClick('#payments')
 							}}
 						>
 							Выплаты
@@ -90,14 +83,8 @@ const Header = () => {
 							href={toHashHref('#benefits')}
 							className='cursor-pointer hover:text-contrast active:text-contrast/70 transition-colors duration-150 ease-in-out'
 							onClick={e => {
-								// smooth-scroll только если мы УЖЕ на главной
-								if (location.pathname === '/') {
-									e.preventDefault()
-									handleNavClick('#benefits')
-								} else {
-									// не preventDefault: пусть сработает обычная навигация по href="/#payments"
-									setIsBurgerOpen(false)
-								}
+								e.preventDefault()
+								handleNavClick('#benefits')
 							}}
 						>
 							Льготы
@@ -108,14 +95,8 @@ const Header = () => {
 							href={toHashHref('#requirements')}
 							className='cursor-pointer hover:text-contrast active:text-contrast/70 transition-colors duration-150 ease-in-out'
 							onClick={e => {
-								// smooth-scroll только если мы УЖЕ на главной
-								if (location.pathname === '/') {
-									e.preventDefault()
-									handleNavClick('#requirements')
-								} else {
-									// не preventDefault: пусть сработает обычная навигация по href="/#payments"
-									setIsBurgerOpen(false)
-								}
+								e.preventDefault()
+								handleNavClick('#requirements')
 							}}
 						>
 							Требования
@@ -126,14 +107,8 @@ const Header = () => {
 							href={toHashHref('#documents')}
 							className='cursor-pointer hover:text-contrast active:text-contrast/70 transition-colors duration-150 ease-in-out'
 							onClick={e => {
-								// smooth-scroll только если мы УЖЕ на главной
-								if (location.pathname === '/') {
-									e.preventDefault()
-									handleNavClick('#documents')
-								} else {
-									// не preventDefault: пусть сработает обычная навигация по href="/#payments"
-									setIsBurgerOpen(false)
-								}
+								e.preventDefault()
+								handleNavClick('#documents')
 							}}
 						>
 							Документы
@@ -144,14 +119,8 @@ const Header = () => {
 							href={toHashHref('#specializations')}
 							className='cursor-pointer hover:text-contrast active:text-contrast/70 transition-colors duration-150 ease-in-out'
 							onClick={e => {
-								// smooth-scroll только если мы УЖЕ на главной
-								if (location.pathname === '/') {
-									e.preventDefault()
-									handleNavClick('#specializations')
-								} else {
-									// не preventDefault: пусть сработает обычная навигация по href="/#payments"
-									setIsBurgerOpen(false)
-								}
+								e.preventDefault()
+								handleNavClick('#specializations')
 							}}
 						>
 							Специализации
@@ -172,12 +141,17 @@ const Header = () => {
 				<div className='flex xl:gap-[50px] items-center'>
 					<div className='hidden min-[426px]:flex items-center gap-2.5 mr-3.75 min-[960px]:mr-0 min-[1200px]:mr-3.75'>
 						<a
-							href='tel:+79998887766'
+							href='tel:+79334380810'
 							className='font-golos font-medium text-[14px] cursor-pointer hover:text-contrast active:text-contrast/70 transition-colors duration-150 ease-in-out'
 						>
-							+7(999)8887766
+							+7 (933) 438-08-10
 						</a>
-						<a href='/' aria-label='Telegram'>
+						<a
+							href='https://t.me/+79334380810'
+							target='_blank'
+							rel='noopener noreferrer'
+							aria-label='Telegram'
+						>
 							<Tg className='cursor-pointer hover:opacity-90 active:opacity-70' />
 						</a>
 					</div>

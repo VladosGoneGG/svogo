@@ -1,15 +1,13 @@
 const DEFAULTS = {
+	title:
+		'Контрактная служба СВО по специальностям — возможность выбрать направление и получить обучение',
 	subtitle:
 		'Контрактная служба позволяет добровольцам поступить в выбранные подразделения и работать по специальности.',
 	text: 'Кандидату предоставляется обучение, экипировка, денежное довольствие и возможность служить в тех войсках, где его навыки наиболее востребованы: РЭБ, артиллерия, ВДВ, Африканский корпус, ракетные войска, морская пехота, мотострелковые части, водители категорий C/D/E, операторы БПЛА и другие направления',
 }
 
-/**
- * props (из админки):
- * - subtitle?: string  // первый абзац (подзаголовок/описание)
- * - text?: string      // второй абзац (серый)
- */
-const Specialties = ({ subtitle, text }) => {
+const Specialties = ({ title, subtitle, text }) => {
+	const finalTitle = title ?? DEFAULTS.title
 	const finalSubtitle = subtitle ?? DEFAULTS.subtitle
 	const finalText = text ?? DEFAULTS.text
 
@@ -23,8 +21,7 @@ const Specialties = ({ subtitle, text }) => {
 								text-contrast
 							'
 				>
-					Контрактная служба СВО по специальностям — возможность выбрать
-					направление и получить обучение
+					{finalTitle}
 				</h2>
 
 				<div className='w-full flex flex-col gap-5 font-golos'>

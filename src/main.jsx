@@ -9,7 +9,15 @@ import Blog from './pages/Blog'
 import DynamicPage from './pages/DynamicPage'
 import Home from './pages/Home'
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			retry: 1,
+			refetchOnWindowFocus: false,
+			staleTime: 60_000, // 1 минута
+		},
+	},
+})
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
@@ -42,5 +50,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 				</BrowserRouter>
 			</QueryClientProvider>
 		</HelmetProvider>
-	</React.StrictMode>
+	</React.StrictMode>,
 )

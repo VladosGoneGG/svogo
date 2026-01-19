@@ -5,14 +5,12 @@ import Logo from '../../assets/svg/Logo.svg?react'
 import { useFooterLinks } from '../../hooks/useFooterLinks'
 import { useGoHome } from '../../hooks/useGoHome'
 import { usePopupFlow } from '../../hooks/usePopupFlow'
-import { useScrollNav } from '../../hooks/useScrollNav'
 import Modal from '../Modal/Modal'
 import Popup from '../Popup/Popup'
 import Popupok from '../Popupok/Popupok'
 
 const Footer = () => {
 	const callPopup = usePopupFlow()
-	const scrollNav = useScrollNav()
 	const goHome = useGoHome()
 	const location = useLocation()
 
@@ -25,16 +23,19 @@ const Footer = () => {
 	// делает "нормальный" href для якорей, чтобы боты видели ссылки
 	const toHashHref = hash => `/${hash}` // '#payments' -> '/#payments'
 
-	// универсальный обработчик для пунктов меню-якорей
+	// универсальный обработчик для пунктов меню-якорей:
+	// - если секция есть на текущей странице -> скроллим тут
+	// - если секции нет -> даём браузеру перейти на "/#секция"
 	const onHashClick = (e, hash) => {
-		// Если уже на главной — делаем smooth-scroll (JS)
-		if (location.pathname === '/') {
+		const el = document.querySelector(hash)
+
+		if (el) {
 			e.preventDefault()
-			scrollNav(hash)
+			el.scrollIntoView({ behavior: 'smooth', block: 'start' })
 			return
 		}
-		// Если НЕ на главной — НЕ блокируем ссылку:
-		// браузер сам перейдёт на "/#секция"
+
+		// если элемента нет — НЕ preventDefault, пусть уйдёт на "/#..."
 	}
 
 	return (
@@ -67,11 +68,14 @@ const Footer = () => {
 								href='tel:+79998887766'
 								className='font-golos font-medium text-[14px] hover:text-contrast active:text-contrast/70 transition-colors duration-150 ease-in-out'
 							>
-								+7(999)8887766
+								+7 (933) 438-08-10
 							</a>
 
 							<a
-								href='/'
+								href='https://t.me/+79334380810'
+								target='_blank'
+								rel='noopener noreferrer'
+								aria-label='Telegram'
 								className='flex items-center justify-center shrink-0 w-7.5 h-7.5 rounded-[10px] cursor-pointer hover:opacity-90 active:opacity-70'
 							>
 								<img src={Telega} alt='Телеграм' />
@@ -160,7 +164,7 @@ const Footer = () => {
 								</ul>
 							</div>
 
-							{/* Меню — FIX для Lighthouse: у <a> есть href */}
+							{/* Меню */}
 							<div>
 								<h4 className='font-inter font-semibold text-[14px] min-[569px]:text-[18px] mb-2'>
 									Меню
@@ -237,10 +241,6 @@ const Footer = () => {
 										>
 											Блог
 										</Link>
-									</li>
-
-									<li className='cursor-pointer hover:text-contrast active:text-contrast/70 transition-colors duration-150 ease-in-out'>
-										Сотрудничество
 									</li>
 								</ul>
 							</div>

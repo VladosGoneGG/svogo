@@ -1,8 +1,16 @@
-import { blogPageMock } from '../mocks/blogPage.mock'
+import { blogVariantsMock } from '../mocks/blogVariants.mock'
 
 export async function fetchBlogPage() {
-	// имитация реального запроса
-	await new Promise(resolve => setTimeout(resolve, 300))
+	await new Promise(r => setTimeout(r, 50))
 
-	return blogPageMock
+	const activeKey = blogVariantsMock.active
+	const page = blogVariantsMock.variants[activeKey]
+
+	if (!page) {
+		const err = new Error('Not Found')
+		err.status = 404
+		throw err
+	}
+
+	return page
 }

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { usePopupFlow } from '../../hooks/usePopupFlow'
 import { STEPS } from './steps'
@@ -15,6 +15,10 @@ const Answers = () => {
 
 	// состояние для модалки успеха
 	const okPopup = usePopupFlow()
+
+	// фронтовой антиспам (временное решение)
+	const [isSending, setIsSending] = useState(false)
+	const lastSentAtRef = useRef(0)
 
 	const {
 		register,
@@ -35,7 +39,7 @@ const Answers = () => {
 			spec: '',
 			interest: '',
 			priority: '',
-			fio: '',
+			name: '',
 			phone: '',
 			agree: false,
 		},
@@ -65,12 +69,14 @@ const Answers = () => {
 
 	// watch
 	const birthDate = watch('birthDate')
-	const fio = watch('fio')
+	const name = watch('name')
 	const phone = watch('phone')
 	const agree = watch('agree')
 	const pickedValue = watch(currentStep?.field || '')
+
 	const EASE = [0.42, 0, 0.58, 1]
 	const DURATION = 0.3
+
 	const canNextQuiz = useMemo(() => {
 		if (!currentStep) return false
 
@@ -83,9 +89,9 @@ const Answers = () => {
 
 	const canSubmit = useMemo(() => {
 		return (
-			Boolean((fio || '').trim()) && isValidRuPhone(phone) && Boolean(agree)
+			Boolean((name || '').trim()) && isValidRuPhone(phone) && Boolean(agree)
 		)
-	}, [fio, phone, agree])
+	}, [name, phone, agree])
 
 	const goNext = async () => {
 		if (isContacts) return
@@ -130,9 +136,13 @@ const Answers = () => {
 		await trigger('agree')
 	}
 
-	// ✅ сабмит контактов (и всего квиза), после успеха показываем Popupok
+	// ✅ сабмит контактов (и всего квиза) -> Telegram (временно с фронта)
 	const onSubmit = async raw => {
-		const data = {
+		const now = Date.now()
+		if (now - lastSentAtRef.current < 15000) return
+		if (isSending) return
+
+		const payload = {
 			...raw,
 			military: optionsLabelMap.military?.[raw.military] || raw.military,
 			health: optionsLabelMap.health?.[raw.health] || raw.health,
@@ -141,11 +151,19 @@ const Answers = () => {
 			priority: optionsLabelMap.priority?.[raw.priority] || raw.priority,
 		}
 
+		setIsSending(true)
 		try {
-			// тут твоя реальная отправка
-			// await api.sendQuiz(data)
+			const res = await fetch('https://v-svo.ru/api/lead/bid', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(payload),
+			})
 
-			console.log('FORM DATA:', data)
+			if (!res.ok) {
+				return
+			}
+
+			lastSentAtRef.current = now
 
 			okPopup.open()
 			okPopup.success()
@@ -155,11 +173,11 @@ const Answers = () => {
 			setIsContacts(false)
 		} catch (e) {
 			console.error('Submit error:', e)
-			// тут можно показать ошибку/тост
+		} finally {
+			console.log(payload)
+			setIsSending(false)
 		}
 	}
-
-	const closeOk = () => setIsOkOpen(false)
 
 	return (
 		<section className='relative pb-5 pt-5 lg:py-[30px] xl:pb-[40px]'>
@@ -174,8 +192,8 @@ const Answers = () => {
 						step={step}
 						isContacts={isContacts}
 						canNextQuiz={canNextQuiz}
-						canSubmit={canSubmit}
-						isSubmitting={isSubmitting}
+						canSubmit={canSubmit && !isSending}
+						isSubmitting={isSubmitting || isSending}
 						onBack={goBack}
 						onNext={goNext}
 					/>

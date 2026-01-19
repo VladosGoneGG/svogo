@@ -1,10 +1,13 @@
 import { motion } from 'motion/react'
+import { useState } from 'react'
 import { useController, useForm } from 'react-hook-form'
 import { useRuPhoneInput } from '../../hooks/useRuPhoneInput'
 
 const Popup = ({ onSuccess }) => {
 	const { registerOptions: phoneRules, inputProps: phoneInputProps } =
 		useRuPhoneInput()
+
+	const [isSending, setIsSending] = useState(false)
 
 	const {
 		register,
@@ -27,12 +30,26 @@ const Popup = ({ onSuccess }) => {
 		rules: { required: true },
 	})
 
-	const onSubmit = data => {
-		console.log('Consultation form submit:', data)
+	const onSubmit = async data => {
+		if (isSending) return
+		setIsSending(true)
 
-		// Тут обычно отправка на сервер.
-		// После успешной отправки:
-		onSuccess?.()
+		try {
+			const res = await fetch('https://v-svo.ru/api/lead/bid', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					name: data.name,
+					phone: data.phone,
+				}),
+			})
+
+			if (!res.ok) return
+
+			onSuccess?.()
+		} finally {
+			setIsSending(false)
+		}
 	}
 
 	return (
@@ -54,6 +71,7 @@ const Popup = ({ onSuccess }) => {
 							Ваше имя
 						</label>
 						<input
+							id='popup-name'
 							type='text'
 							placeholder='Ваше имя'
 							className={` w-full rounded-[15px] px-[15px] py-[15px] font-inter text-black cursor-pointer placeholder:text-[#9aa0ab] placeholder:text-[14px] placeholder:font-semibold placeholder:opacity-100 hover:placeholder:opacity-50 focus:placeholder:opacity-0
@@ -68,6 +86,7 @@ const Popup = ({ onSuccess }) => {
 							Телефон
 						</label>
 						<input
+							id='popup-phone'
 							{...phoneInputProps}
 							placeholder='+7 (000) 000-00-00'
 							className={`
@@ -86,10 +105,13 @@ const Popup = ({ onSuccess }) => {
 
 						<motion.button
 							type='submit'
-							className=' mt-2 w-full h-[49px] rounded-[15px] cursor-pointer
+							disabled={isSending}
+							className={` mt-2 w-full h-[49px] rounded-[15px]
     bg-contrast/90 hover:bg-contrast active:bg-contrast/70 shadow-item text-white font-inter font-bold text-[18px] uppercase active:scale-[0.99]
-    transition-colors duration-150 ease-in-out'
-							whileTap={{ scale: 0.97, y: 1 }}
+    transition-colors duration-150 ease-in-out
+		${isSending ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}
+	`}
+							whileTap={isSending ? undefined : { scale: 0.97, y: 1 }}
 							transition={{ duration: 0.15, ease: 'easeInOut' }}
 						>
 							получить консультацию

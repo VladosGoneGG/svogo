@@ -4,8 +4,9 @@ import Passport from '../../assets/images/passport.webp'
 import Snils from '../../assets/images/snils.webp'
 import DashedBorder from '../DashedBorder/DashedBorder'
 import Fullbleed from '../Fullbleed/Fullbleed'
-
-const Papers = () => {
+const DEFAULT_TITLE = 'Необходимые документы для службы по контракту'
+const Papers = ({ title }) => {
+	const finalTitle = title ?? DEFAULT_TITLE
 	return (
 		<section
 			id='documents'
@@ -22,7 +23,7 @@ const Papers = () => {
 							
 						'
 					>
-						Необходимые документы для службы по контракту
+						{finalTitle}
 					</h2>
 					<div className='flex flex-col gap-2.5 text-[16px] lg:text-[21px]'>
 						<p>

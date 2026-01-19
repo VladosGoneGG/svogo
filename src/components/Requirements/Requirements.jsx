@@ -5,6 +5,7 @@ import Fullbleed from '../Fullbleed/Fullbleed'
 import Modal from '../Modal/Modal'
 import Popup from '../Popup/Popup'
 import Popupok from '../Popupok/Popupok'
+const DEFAULT_TITLE = 'Требования и условия для службы по контракту'
 const DEFAULT_INTRO_TEXT =
 	'Мы заранее проверим вашу годность, условия ВВК и подскажем, какие документы нужны для допуска к контракту. Консультация бесплатная'
 
@@ -12,9 +13,10 @@ const DEFAULT_INTRO_TEXT =
  * props (из админки):
  * - introText?: string
  */
-const Requirements = ({ introText }) => {
+const Requirements = ({ title, introText }) => {
 	const popup = usePopupFlow()
 
+	const finalTitle = title ?? DEFAULT_TITLE
 	const finalIntroText = introText ?? DEFAULT_INTRO_TEXT
 
 	return (
@@ -29,7 +31,7 @@ const Requirements = ({ introText }) => {
 				{/* ЛЕВАЯ КОЛОНКА */}
 				<div className='flex w-full md:h-[580px] flex-col justify-start gap-5 md:justify-between  md:max-w-[350px] lg:max-w-[400px] xl:max-w-[580px] '>
 					<h2 className='w-full font-golos text-contrast font-semibold text-[20px] md:text-[24px]  lg:text-[30px] xl:text-[40px] xl:max-w-[508px]'>
-						Требования и условия для службы по контракту
+						{finalTitle}
 					</h2>
 
 					<p className='w-full font-golos font-normal text-[14px] md:text-[16px] lg:text-[21px] xl:max-w-[508px]'>

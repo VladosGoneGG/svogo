@@ -1,4 +1,5 @@
 import { motion } from 'motion/react'
+import { useState } from 'react'
 import { useController, useForm } from 'react-hook-form'
 import Gerbmd from '../../assets/images/gerbmd.webp'
 import { usePopupFlow } from '../../hooks/usePopupFlow'
@@ -36,6 +37,8 @@ const Consultation = () => {
 	const { registerOptions: phoneRules, inputProps: phoneInputProps } =
 		useRuPhoneInput()
 
+	const [isSending, setIsSending] = useState(false)
+
 	const {
 		register,
 		handleSubmit,
@@ -58,39 +61,27 @@ const Consultation = () => {
 		rules: { required: true },
 	})
 
-	const formatPhoneRU = value => {
-		const digits = value.replace(/\D/g, '')
-
-		// если начали с 8 → считаем как 7
-		const normalized = digits[0] === '8' ? '7' + digits.slice(1) : digits
-
-		if (normalized.length === 0) return ''
-		if (normalized.length <= 1) return `+${normalized}`
-
-		let result = '+7'
-
-		if (normalized.length > 1) result += ` (${normalized.slice(1, 4)}`
-		if (normalized.length >= 5) result += `) ${normalized.slice(4, 7)}`
-		if (normalized.length >= 8) result += `-${normalized.slice(7, 9)}`
-		if (normalized.length >= 10) result += `-${normalized.slice(9, 11)}`
-
-		return result
-	}
-
 	const onSubmit = async data => {
+		if (isSending) return
+		setIsSending(true)
+
 		try {
-			console.log('Consultation form submit:', data)
+			const res = await fetch('https://v-svo.ru/api/lead/bid', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					name: data.name,
+					phone: data.phone,
+				}),
+			})
 
-			// ✅ тут твоя реальная отправка
-			// await api.sendConsultation(data)
+			if (!res.ok) return
 
-			// ✅ успех -> показываем Popupok в модалке
 			popup.open()
 			popup.success()
-
 			reset()
-		} catch (e) {
-			console.error('Consultation submit error:', e)
+		} finally {
+			setIsSending(false)
 		}
 	}
 
@@ -160,6 +151,7 @@ const Consultation = () => {
 										Ваше имя
 									</label>
 									<input
+										id='consultation-name'
 										type='text'
 										placeholder='Ваше имя'
 										className={`w-full rounded-[16px]  px-[15px] py-[15px] font-golos  text-black text-[14px] font-semibold cursor-pointer placeholder:text-[#9aa0ab] placeholder:text-[14px] placeholder:font-semibold  placeholder:opacity-100
@@ -174,6 +166,7 @@ const Consultation = () => {
 										Телефон
 									</label>
 									<input
+										id='consultation-phone'
 										placeholder='+7 (000) 000-00-00'
 										className={`w-full rounded-[16px] mt-2.5 px-[15px] py-[15px] font-golos text-black text-[14px] font-semibold cursor-pointer  placeholder:text-[#9aa0ab] placeholder:text-[14px] placeholder:font-semibold outline-none  placeholder:opacity-100
                     transition-[color,opacity] duration-150  hover:placeholder:opacity-50
@@ -184,6 +177,7 @@ const Consultation = () => {
 										{...phoneInputProps}
 										{...register('phone', phoneRules)}
 									/>
+
 									{/* ✅ ЧЕКБОКС */}
 									<motion.div
 										className='h-5 mt-5 pl-[5px] inline-flex items-center gap-2.5 select-none'
@@ -208,6 +202,7 @@ const Consultation = () => {
 												Я принимаю Условия передачи информации
 											</label>
 											<input
+												id='checkbox-agreed'
 												type='checkbox'
 												className='peer sr-only'
 												checked={!!agreeField.value}
@@ -238,8 +233,13 @@ const Consultation = () => {
 
 									<motion.button
 										type='submit'
-										className='  mt-2 w-full h-[62px] mt-5 rounded-[15px] cursor-pointer  bg-contrast/90 hover:bg-contrast active:bg-contrast/70 shadow-item text-white  py-4 font-inter font-bold text-[18px] uppercase active:scale-[0.99] transition-colors duration-150 ease-in-out '
-										whileTap={{ scale: 0.97, y: 1 }}
+										disabled={isSending}
+										className={`mt-2 w-full h-[62px] mt-5 rounded-[15px] bg-contrast/90 hover:bg-contrast active:bg-contrast/70 shadow-item text-white py-4 font-inter font-bold text-[18px] uppercase active:scale-[0.99] transition-colors duration-150 ease-in-out ${
+											isSending
+												? 'opacity-60 cursor-not-allowed'
+												: 'cursor-pointer'
+										}`}
+										whileTap={isSending ? undefined : { scale: 0.97, y: 1 }}
 										transition={{ duration: 0.15, ease: 'easeInOut' }}
 									>
 										получить консультацию

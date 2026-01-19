@@ -1,12 +1,12 @@
 import { AnimatePresence, motion } from 'motion/react'
 import { useCallback } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import Telega from '../../assets/images/telegrami.png'
 import Logo from '../../assets/svg/Logo.svg?react'
 import { useGoHome } from '../../hooks/useGoHome'
 import { usePopupFlow } from '../../hooks/usePopupFlow'
-import { useScrollNav } from '../../hooks/useScrollNav'
+// import { useScrollNav } from '../../hooks/useScrollNav' // ❌ больше не нужен
 
 import Modal from '../Modal/Modal'
 import Popup from '../Popup/Popup'
@@ -23,18 +23,29 @@ const NAV = [
 
 const Burger = ({ open, onClose }) => {
 	const callPopup = usePopupFlow()
-	const scrollNav = useScrollNav()
+	// const scrollNav = useScrollNav() // ❌ убрали
 	const goHome = useGoHome()
+	const navigate = useNavigate()
 
 	const handleHashClick = useCallback(
 		hash => {
 			onClose?.()
+
 			// чуть ждём анимацию закрытия, чтобы не дёргалось
 			setTimeout(() => {
-				scrollNav(hash)
+				const el = document.querySelector(hash)
+
+				// ✅ если секция есть на текущей странице — скроллим тут (как в Header)
+				if (el) {
+					el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+					return
+				}
+
+				// ❗ если секции нет — идём на главную с hash
+				navigate(`/${hash}`)
 			}, 220)
 		},
-		[onClose, scrollNav]
+		[onClose, navigate],
 	)
 
 	const handleGoHome = useCallback(() => {
@@ -86,7 +97,6 @@ const Burger = ({ open, onClose }) => {
 						>
 							{/* TOP */}
 							<div className='flex items-start justify-between'>
-								{/* Лого: всегда на главную и вверх */}
 								<a
 									href='/'
 									onClick={e => {
@@ -110,7 +120,6 @@ const Burger = ({ open, onClose }) => {
 
 							{/* MIDDLE */}
 							<div className='flex-1 flex flex-col gap-5'>
-								{/* NAV */}
 								<nav className='mt-5'>
 									<ul
 										className='flex flex-col
@@ -123,7 +132,7 @@ const Burger = ({ open, onClose }) => {
 											<li key={item.label}>
 												{item.type === 'hash' ? (
 													<a
-														href={item.href}
+														href={item.href} // "#payments"
 														onClick={e => {
 															e.preventDefault()
 															handleHashClick(item.href)

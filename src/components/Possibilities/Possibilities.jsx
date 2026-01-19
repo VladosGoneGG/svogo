@@ -1,7 +1,15 @@
 import Dronm from '../../assets/images/dronm.webp'
 import Drons from '../../assets/images/drons.webp'
 
-const Possibilities = () => {
+const DEFAULTS = {
+	title: 'Лучшие возможности по выбору части',
+	text: 'Мы помогаем кандидатам выбрать подходящую воинскую часть и специальность с учетом навыков, опыта и желаемых условий службы',
+}
+
+const Possibilities = ({ title, text }) => {
+	const finalTitle = title ?? DEFAULTS.title
+	const finalText = text ?? DEFAULTS.text
+
 	return (
 		<section className='relative pb-5 lg:py-[30px] xl:py-[40px] py-5'>
 			{/* ФОН */}
@@ -25,13 +33,12 @@ const Possibilities = () => {
 								text-contrast
 							'
 						>
-							Лучшие возможности по выбору части
+							{finalTitle}
 						</h2>
 
 						<div className='mt-5 max-w-[560px]'>
 							<p className='font-golos font-normal text-[16px] lg:text-[21px] '>
-								Мы помогаем кандидатам выбрать подходящую воинскую часть и
-								специальность с учетом навыков, опыта и желаемых условий службы
+								{finalText}
 							</p>
 
 							<p className='mt-2.5 text-[16px] lg:text-[21px] text-contrast font-semibold'>

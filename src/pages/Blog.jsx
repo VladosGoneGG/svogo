@@ -1,7 +1,5 @@
 import { Helmet } from '@dr.pogodin/react-helmet'
-import { useLocation } from 'react-router-dom'
-import { SITE_CONFIG } from '../config/site'
-
+import { Navigate, useLocation } from 'react-router-dom'
 import Answers from '../components/Answers/Answers'
 import Blogsection from '../components/Blogsection/Blogsection'
 import Consultation from '../components/Consultation/Consultation'
@@ -9,6 +7,7 @@ import Footer from '../components/Footer/Footer'
 import Header from '../components/Header/Header'
 import Hero from '../components/Hero/Hero'
 import Requirements from '../components/Requirements/Requirements'
+import { SITE_CONFIG } from '../config/site'
 import { useBlogPage } from '../hooks/useBlogPage'
 
 const clamp = (str, max = 160) => {
@@ -18,22 +17,28 @@ const clamp = (str, max = 160) => {
 }
 
 const Blog = () => {
-	const { data } = useBlogPage()
+	const { data, isLoading, isError, error } = useBlogPage()
 	const location = useLocation()
+
+	if (isLoading) return null
+
+	if (isError) {
+		if (error?.status === 404) return <Navigate to='/' replace />
+	}
 
 	const baseTitle = data?.seo?.title || 'Блог'
 	const title = `${baseTitle}${SITE_CONFIG.brandSuffix ?? ''}`.trim()
 
 	const baseDescription =
 		data?.seo?.description ||
+		data?.hero?.subtitle ||
+		(typeof data?.hero?.text === 'string' ? data.hero.text : '') ||
 		data?.block1?.text ||
 		'Полезные статьи, разборы и рекомендации.'
 
 	const description = clamp(baseDescription)
-
 	const canonicalUrl = `${SITE_CONFIG.domain}${location.pathname}`
 
-	// --- schema.org (JSON-LD) ---
 	const schemaOrgJson = {
 		'@context': 'https://schema.org',
 		'@graph': [
@@ -72,7 +77,6 @@ const Blog = () => {
 				],
 			},
 			{
-				// Blog как страница со статьями
 				'@type': 'Blog',
 				'@id': `${canonicalUrl}#blog`,
 				url: canonicalUrl,
@@ -102,14 +106,11 @@ const Blog = () => {
 	return (
 		<>
 			<Helmet>
-				{/* BASIC SEO */}
 				<title>{title}</title>
 				{description ? <meta name='description' content={description} /> : null}
 
-				{/* CANONICAL */}
 				<link rel='canonical' href={canonicalUrl} />
 
-				{/* OPEN GRAPH */}
 				<meta property='og:type' content='website' />
 				<meta property='og:title' content={title} />
 				{description ? (
@@ -119,7 +120,6 @@ const Blog = () => {
 				<meta property='og:site_name' content={SITE_CONFIG.brandName} />
 				<meta property='og:locale' content={SITE_CONFIG.locale || 'ru_RU'} />
 
-				{/* schema.org JSON-LD */}
 				<script type='application/ld+json'>
 					{JSON.stringify(schemaOrgJson)}
 				</script>
@@ -129,26 +129,27 @@ const Blog = () => {
 				<Header />
 
 				<main className='flex-1 mt-2.5'>
-					<Hero />
+					{data?.hero ? <Hero {...data.hero} /> : <Hero />}
 
-					{data ? (
-						<>
-							<Blogsection data={data.block1} />
-							<Blogsection data={data.post1} bgClassName='bg-[#F9F9F9]' />
+					<>
+						<Blogsection data={data.block1} />
+						<Blogsection data={data.post1} bgClassName='bg-[#F9F9F9]' />
 
-							<Answers />
+						<Answers />
 
-							<Blogsection data={data.block2} />
-							<Blogsection data={data.post2} bgClassName='bg-[#F9F9F9]' />
+						<Blogsection data={data.block2} />
+						<Blogsection data={data.post2} bgClassName='bg-[#F9F9F9]' />
 
-							<Requirements />
+						<Requirements
+							title={data?.requirements?.title}
+							introText={data?.requirements?.introText}
+						/>
 
-							<Blogsection data={data.block3} bgClassName='bg-[#F9F9F9]' />
-							<Blogsection data={data.post3} />
+						<Blogsection data={data.block3} bgClassName='bg-[#F9F9F9]' />
+						<Blogsection data={data.post3} />
 
-							<Consultation />
-						</>
-					) : null}
+						<Consultation />
+					</>
 				</main>
 
 				<Footer />

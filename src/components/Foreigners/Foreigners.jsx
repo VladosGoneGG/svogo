@@ -1,4 +1,7 @@
-const Foreigners = () => {
+const DEFAULT_TITLE = 'Приём иностранных граждан на службу по контракту'
+
+const Foreigners = ({ title }) => {
+	const finalTitle = title ?? DEFAULT_TITLE
 	return (
 		<section
 			id='foreigners'
@@ -12,7 +15,7 @@ const Foreigners = () => {
 								text-contrast
 							'
 				>
-					Приём иностранных граждан на службу по контракту
+					{finalTitle}
 				</h2>
 				<div className='w-full flex flex-col gap-5 font-golos'>
 					<p className='text-[16px] lg:text-[21px] font-normal'>

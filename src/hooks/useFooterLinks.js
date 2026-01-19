@@ -1,5 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
-import { pagesMock } from '../mocks/pages.mock'
+
+const ENDPOINTS = {
+	city: '/api/noteData/city',
+	specialization: '/api/noteData/specialization',
+	profession: '/api/noteData/profession',
+	unit: '/api/noteData/unit',
+}
 
 function getLabel(slug, page) {
 	return (
@@ -9,37 +15,61 @@ function getLabel(slug, page) {
 	)
 }
 
-function buildLinksFromPagesMock() {
-	const city = pagesMock.city ?? {}
-	const specialization = pagesMock.specialization ?? {}
-	const profession = pagesMock.profession ?? {}
-	const unit = pagesMock.unit ?? {}
+const byLabel = (a, b) => (a.label || '').localeCompare(b.label || '', 'ru')
 
-	const cities = Object.entries(city).map(([slug, page]) => ({
+async function apiGet(url, { signal } = {}) {
+	const res = await fetch(url, {
+		method: 'GET',
+		headers: { Accept: 'application/json' },
+		signal,
+	})
+
+	if (!res.ok) {
+		const text = await res.text().catch(() => '')
+		const err = new Error(text || `HTTP ${res.status}`)
+		err.status = res.status
+		throw err
+	}
+
+	return res.json()
+}
+
+async function fetchFooterLinks({ signal } = {}) {
+	const [cityIndex, specializationIndex, professionIndex, unitIndex] =
+		await Promise.all([
+			apiGet(ENDPOINTS.city, { signal }),
+			apiGet(ENDPOINTS.specialization, { signal }),
+			apiGet(ENDPOINTS.profession, { signal }),
+			apiGet(ENDPOINTS.unit, { signal }),
+		])
+
+	const cities = Object.entries(cityIndex ?? {}).map(([slug, page]) => ({
 		slug,
+		type: 'city',
 		label: getLabel(slug, page),
 	}))
 
-	const specializations = Object.entries(specialization).map(
+	const specializations = Object.entries(specializationIndex ?? {}).map(
 		([slug, page]) => ({
 			slug,
 			type: 'specialization',
 			label: getLabel(slug, page),
-		})
+		}),
 	)
 
-	const professions = Object.entries(profession).map(([slug, page]) => ({
+	const professions = Object.entries(professionIndex ?? {}).map(
+		([slug, page]) => ({
+			slug,
+			type: 'profession',
+			label: getLabel(slug, page),
+		}),
+	)
+
+	const units = Object.entries(unitIndex ?? {}).map(([slug, page]) => ({
 		slug,
-		type: 'profession',
+		type: 'unit',
 		label: getLabel(slug, page),
 	}))
-
-	const units = Object.entries(unit).map(([slug, page]) => ({
-		slug,
-		label: getLabel(slug, page),
-	}))
-
-	const byLabel = (a, b) => (a.label || '').localeCompare(b.label || '', 'ru')
 
 	return {
 		cities: cities.sort(byLabel),
@@ -48,15 +78,11 @@ function buildLinksFromPagesMock() {
 	}
 }
 
-async function fetchFooterLinks() {
-	await new Promise(r => setTimeout(r, 80))
-	return buildLinksFromPagesMock()
-}
-
 export function useFooterLinks() {
 	return useQuery({
 		queryKey: ['footerLinks'],
-		queryFn: fetchFooterLinks,
+		queryFn: ({ signal }) => fetchFooterLinks({ signal }),
 		staleTime: 1000 * 60 * 10,
+		refetchOnWindowFocus: false,
 	})
 }
