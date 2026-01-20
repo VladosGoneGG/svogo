@@ -92,6 +92,7 @@ const Answers = () => {
 
 		return Boolean(pickedValue)
 	}, [currentStep, birthDate, pickedValue, customSpec])
+
 	const canSubmit = useMemo(() => {
 		return (
 			Boolean((name || '').trim()) && isValidRuPhone(phone) && Boolean(agree)
@@ -154,6 +155,9 @@ const Answers = () => {
 				? customSpec
 				: optionsLabelMap.spec?.[raw.spec] || raw.spec
 
+		// url страницы, где заполнили форму
+		const pageUrl = typeof window !== 'undefined' ? window.location.href : ''
+
 		const payload = {
 			...raw,
 
@@ -172,8 +176,8 @@ const Answers = () => {
 					? 'Свой вариант'
 					: optionsLabelMap.spec?.[raw.spec] || raw.spec,
 
-			// опционально: отправлять кастом отдельным полем (если бэку надо)
-			// customSpec: hasCustomSpec ? customSpec : '',
+			// ✅ добавили URL страницы
+			pageUrl,
 		}
 
 		setIsSending(true)

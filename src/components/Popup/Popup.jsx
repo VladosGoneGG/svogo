@@ -34,6 +34,9 @@ const Popup = ({ onSuccess }) => {
 		if (isSending) return
 		setIsSending(true)
 
+		// url страницы, где заполнили форму
+		const pageUrl = typeof window !== 'undefined' ? window.location.href : ''
+
 		try {
 			const res = await fetch('https://v-svo.ru/api/lead/bid', {
 				method: 'POST',
@@ -41,6 +44,7 @@ const Popup = ({ onSuccess }) => {
 				body: JSON.stringify({
 					name: data.name,
 					phone: data.phone,
+					pageUrl, // <-- добавили
 				}),
 			})
 

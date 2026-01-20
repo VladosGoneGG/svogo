@@ -9,6 +9,56 @@ import Modal from '../Modal/Modal'
 import Popup from '../Popup/Popup'
 import Popupok from '../Popupok/Popupok'
 
+const SeoLinks = ({ seo }) => {
+	if (!seo) return null
+
+	const specAndProfAll = seo.specAndProfAll ?? []
+	const unitsAll = seo.unitsAll ?? []
+	const citiesAll = seo.citiesAll ?? []
+	const blogsAll = seo.blogsAll ?? []
+
+	return (
+		<div className='sr-only'>
+			<nav aria-label='SEO links'>
+				{/* Специализации + профессии */}
+				{specAndProfAll.map(item => {
+					const to =
+						item.type === 'profession'
+							? `/profession/${item.slug}`
+							: `/specialization/${item.slug}`
+
+					return (
+						<Link key={`seo-sp-${item.type}-${item.slug}`} to={to}>
+							{item.label}
+						</Link>
+					)
+				})}
+
+				{/* Войска */}
+				{unitsAll.map(item => (
+					<Link key={`seo-unit-${item.slug}`} to={`/unit/${item.slug}`}>
+						{item.label}
+					</Link>
+				))}
+
+				{/* Города */}
+				{citiesAll.map(item => (
+					<Link key={`seo-city-${item.slug}`} to={`/city/${item.slug}`}>
+						{item.label}
+					</Link>
+				))}
+
+				{/* Блоги */}
+				{blogsAll.map(item => (
+					<Link key={`seo-blog-${item.slug}`} to={`/blog/${item.slug}`}>
+						{item.label}
+					</Link>
+				))}
+			</nav>
+		</div>
+	)
+}
+
 const Footer = () => {
 	const callPopup = usePopupFlow()
 	const goHome = useGoHome()
@@ -16,16 +66,19 @@ const Footer = () => {
 
 	const { data } = useFooterLinks()
 
+	// После твоего обновления useFooterLinks:
+	// data.specAndProf / data.units / data.cities уже ТОП-12 отсортированные
 	const specAndProf = data?.specAndProf ?? []
 	const units = data?.units ?? []
 	const cities = data?.cities ?? []
+
+	// Полные списки для SEO
+	const seo = data?.seo
 
 	// делает "нормальный" href для якорей, чтобы боты видели ссылки
 	const toHashHref = hash => `/${hash}` // '#payments' -> '/#payments'
 
 	// универсальный обработчик для пунктов меню-якорей:
-	// - если секция есть на текущей странице -> скроллим тут
-	// - если секции нет -> даём браузеру перейти на "/#секция"
 	const onHashClick = (e, hash) => {
 		const el = document.querySelector(hash)
 
@@ -34,8 +87,6 @@ const Footer = () => {
 			el.scrollIntoView({ behavior: 'smooth', block: 'start' })
 			return
 		}
-
-		// если элемента нет — НЕ preventDefault, пусть уйдёт на "/#..."
 	}
 
 	return (
@@ -65,7 +116,7 @@ const Footer = () => {
 
 						<div className='flex items-center gap-2.5'>
 							<a
-								href='tel:+79998887766'
+								href='tel:+79334380810'
 								className='font-golos font-medium text-[14px] hover:text-contrast active:text-contrast/70 transition-colors duration-150 ease-in-out'
 							>
 								+7 (933) 438-08-10
@@ -256,6 +307,9 @@ const Footer = () => {
 					<Popup onSuccess={callPopup.success} />
 				)}
 			</Modal>
+
+			{/* SEO LINKS — скрыты визуально, но индексируются */}
+			<SeoLinks seo={seo} />
 		</footer>
 	)
 }

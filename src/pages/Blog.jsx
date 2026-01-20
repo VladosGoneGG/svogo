@@ -129,24 +129,21 @@ const Blog = () => {
 				<Header />
 
 				<main className='flex-1 mt-2.5'>
-					{data?.hero ? <Hero {...data.hero} /> : <Hero />}
+					{data?.content?.hero ? <Hero {...data.content.hero} /> : <Hero />}
 
 					<>
-						<Blogsection data={data.block1} />
-						<Blogsection data={data.post1} bgClassName='bg-[#F9F9F9]' />
+						<Blogsection data={data?.content?.blog1} />
 
 						<Answers />
 
-						<Blogsection data={data.block2} />
-						<Blogsection data={data.post2} bgClassName='bg-[#F9F9F9]' />
+						<Blogsection data={data?.content?.blog2} />
 
 						<Requirements
-							title={data?.requirements?.title}
-							introText={data?.requirements?.introText}
+							title={data?.content?.requirements?.title}
+							text={data?.content?.requirements?.text}
 						/>
 
-						<Blogsection data={data.block3} bgClassName='bg-[#F9F9F9]' />
-						<Blogsection data={data.post3} />
+						<Blogsection data={data?.content?.blog3} />
 
 						<Consultation />
 					</>

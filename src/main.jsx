@@ -28,7 +28,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 					<Routes>
 						<Route path='/' element={<Home />} />
 						<Route path='/blog' element={<Blog />} />
-
+						<Route path='/blog/:categoryKey' element={<Blog />} />
 						<Route
 							path='/city/:slug'
 							element={<DynamicPage pageType='city' />}
